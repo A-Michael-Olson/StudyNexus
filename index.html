@@ -1,18 +1,72 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/styles.css">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Study Nexus</title>
+    <link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body>
-    <h1>Study Nexus</h1>
-    <p>Welcome to Study Nexus, your ultimate destination for academic excellence and collaborative learning.</p>
-    <p>At Study Nexus, we believe that education is a journey best traveled together. Our platform is designed to connect students, educators, and experts from around the world, fostering a vibrant community of learners.</p>
-    
-</body>
+
+```
+<!-- Navigation -->
+<header class="nav">
+    <h2 class="logo">Study Nexus</h2>
+    <div class="nav-actions">
+        <button class="btn ghost" onclick="goToApp()">Log In</button>
+        <button class="btn primary" onclick="goToApp()">Sign Up</button>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<main class="hero">
+    <h1>Your tasks. Your team. One Nexus.</h1>
+    <p>
+        Study Nexus brings your assignments, deadlines, and study groups
+        into one shared workspace. Plan smarter. Stress less.
+    </p>
+
+    <div class="hero-actions">
+        <button class="btn primary" onclick="goToApp()">Get Started</button>
+        <button class="btn secondary" onclick="scrollToFeatures()">Learn More</button>
+    </div>
+</main>
+
+<!-- Features -->
+<section class="features" id="features">
+    <div class="feature-card">
+        <h3>Shared Task Boards</h3>
+        <p>Organize assignments with your group using live task boards.</p>
+    </div>
+
+    <div class="feature-card">
+        <h3>Group Planning</h3>
+        <p>Coordinate study sessions, exams, and deadlines together.</p>
+    </div>
+
+    <div class="feature-card">
+        <h3>Built for Students</h3>
+        <p>Simple, distraction-free design made for real coursework.</p>
+    </div>
+</section>
+
+<!-- Footer -->
 <footer>
     <p>&copy; 2026 Study Nexus. All rights reserved.</p>
 </footer>
+
+<script>
+    function goToApp() {
+        // Placeholder for future authentication
+        window.location.href = "app.html";
+    }
+
+    function scrollToFeatures() {
+        document.getElementById("features").scrollIntoView({ behavior: "smooth" });
+    }
+</script>
+```
+
+</body>
 </html>
