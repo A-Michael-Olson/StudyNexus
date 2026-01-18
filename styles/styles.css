@@ -5,15 +5,15 @@ Study Nexus – Global Theme & Design System
 /* ===== Root Theme Variables ===== */
 :root {
 /* Backgrounds */
---bg-main: #0f1117;
+--bg-main: #252a36;
 --bg-secondary: #171a21;
 --bg-card: #1f2330;
 --bg-card-hover: #262b3d;
 
 ```
 /* Text */
---text-primary: #f1f3f9;
---text-secondary: #b5bbcc;
+--text-primary: #dcfcfc;
+--text-secondary: #42f5f2;
 --text-muted: #8c92a6;
 
 /* Accent System */
