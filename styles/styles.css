@@ -168,6 +168,19 @@ footer {
     font-size: 0.85rem;
 }
 
+.logo-banner {
+    width: 100vw;
+    height: 120px; /* adjust if you want taller */
+    overflow: hidden;
+}
+
+.logo-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* stretches nicely without distortion */
+    display: block;
+}
+
 /* ===== Responsive (Optional) ===== */
 @media (max-width: 900px) {
     .features {
