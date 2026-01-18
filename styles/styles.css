@@ -1,18 +1,30 @@
+/* ======================================================
+Study Nexus – Global Theme & Design System
+====================================================== */
+
 /* ===== Root Theme Variables ===== */
 :root {
+/* Backgrounds */
 --bg-main: #0f1117;
 --bg-secondary: #171a21;
 --bg-card: #1f2330;
+--bg-card-hover: #262b3d;
 
 ```
---text-primary: #e6e8ef;
---text-secondary: #aeb3c2;
+/* Text */
+--text-primary: #f1f3f9;
+--text-secondary: #b5bbcc;
+--text-muted: #8c92a6;
 
---accent: #4f8cff;
---accent-hover: #3b72d9;
+/* Accent System */
+--accent-start: #4f8cff;
+--accent-end: #7aa2ff;
+--accent-solid: #5b8dff;
 
+/* Utility */
 --border-radius: 12px;
 --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.4);
+--shadow-hover: 0 14px 40px rgba(0, 0, 0, 0.6);
 
 --max-width: 1100px;
 --transition: 0.2s ease-in-out;
@@ -56,12 +68,12 @@ font-weight: 700;
 letter-spacing: 0.5px;
 }
 
+/* ===== Buttons ===== */
 .nav-actions {
 display: flex;
 gap: 1rem;
 }
 
-/* ===== Buttons ===== */
 .btn {
 padding: 0.6rem 1.4rem;
 border-radius: var(--border-radius);
@@ -73,12 +85,16 @@ transition: var(--transition);
 }
 
 .btn.primary {
-background-color: var(--accent);
+background: linear-gradient(
+135deg,
+var(--accent-start),
+var(--accent-end)
+);
 color: white;
 }
 
 .btn.primary:hover {
-background-color: var(--accent-hover);
+opacity: 0.9;
 }
 
 .btn.secondary {
@@ -112,6 +128,19 @@ text-align: center;
 font-size: 3rem;
 font-weight: 800;
 margin-bottom: 1.2rem;
+color: var(--text-primary);
+}
+
+/* Gradient-highlighted word */
+.hero h1 .accent {
+background: linear-gradient(
+135deg,
+var(--accent-start),
+var(--accent-end)
+);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+text-shadow: 0 0 25px rgba(79, 140, 255, 0.35);
 }
 
 .hero p {
@@ -151,11 +180,14 @@ transition: var(--transition);
 
 .feature-card:hover {
 transform: translateY(-6px);
+background-color: var(--bg-card-hover);
+box-shadow: var(--shadow-hover);
 }
 
 .feature-card h3 {
 margin-bottom: 0.75rem;
 font-size: 1.2rem;
+color: var(--text-primary);
 }
 
 .feature-card p {
@@ -168,11 +200,23 @@ footer {
 background-color: var(--bg-secondary);
 padding: 2rem;
 text-align: center;
-color: var(--text-secondary);
+color: var(--text-muted);
 font-size: 0.85rem;
 }
 
-/* ===== Responsive (Light Touch) ===== */
+/* ===== Reusable UI Tokens (Future Use) ===== */
+/*
+.task-card {
+background: var(--bg-card);
+border-left: 4px solid var(--accent-solid);
+}
+
+.task-priority-high {
+color: var(--accent-solid);
+}
+*/
+
+/* ===== Responsive ===== */
 @media (max-width: 900px) {
 .features {
 grid-template-columns: 1fr;
