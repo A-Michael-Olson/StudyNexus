@@ -17,8 +17,8 @@
 <!-- Navigation -->
 <header class="nav">
     <div class="nav-actions">
-        <button class="btn ghost" onclick="goToApp()">Log In</button>
-        <button class="btn primary" onclick="goToApp()">Sign Up</button>
+        <button class="btn ghost" onclick="goToLogin()">Log In</button>
+        <button class="btn primary" onclick="goToSignUp()">Sign Up</button>
     </div>
 </header>
 
@@ -31,7 +31,7 @@
     </p>
 
     <div class="hero-actions">
-        <button class="btn primary" onclick="goToApp()">Get Started</button>
+        <button class="btn primary" onclick="goToLogin()">Get Started</button>
         <button class="btn secondary" onclick="scrollToFeatures()">Learn More</button>
     </div>
 </main>
@@ -60,9 +60,14 @@
 </footer>
 
 <script>
-    function goToApp() {
+    function goToLogin() {
         // Placeholder for future authentication
-        window.location.href = "app.html";
+        window.location.href = "pages/login/login.html";
+    }
+
+    function goToSignUp() {
+        // Placeholder for future authentication
+        window.location.href = "pages/login/signup.html";
     }
 
     function scrollToFeatures() {

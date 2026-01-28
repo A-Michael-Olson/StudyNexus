@@ -22,7 +22,7 @@
     --border-radius: 12px;
     --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.08);
 
-    --max-width: 1100px;
+
     --transition: 0.2s ease-in-out;
 }
 
@@ -43,12 +43,11 @@ body {
 
 /* ===== Navigation ===== */
 .nav {
-    max-width: var(--max-width);
+    width: 100%;
     margin: 0 auto;
     padding: 1.5rem 2rem;
-
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
@@ -62,6 +61,7 @@ body {
 .nav-actions {
     display: flex;
     gap: 0.75rem;
+    align-content: center;
 }
 
 .btn {
@@ -97,7 +97,7 @@ body {
 
 /* ===== Hero Section ===== */
 .hero {
-    max-width: var(--max-width);
+    width: 100%;
     margin: 6rem auto 4rem;
     padding: 0 2rem;
     text-align: center;
@@ -128,12 +128,10 @@ body {
 
 /* ===== Features ===== */
 .features {
-    max-width: var(--max-width);
-    margin: 4rem auto 6rem;
-    padding: 0 2rem;
-
+    width: 100%;
+    margin: 4rem 0 6rem;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     gap: 2rem;
 }
 
@@ -182,12 +180,10 @@ footer {
 }
 
 /* ===== Responsive (Optional) ===== */
-@media (max-width: 900px) {
+@media (min-width: 700px) {
+    .hero,
     .features {
-        grid-template-columns: 1fr;
-    }
-
-    .hero h1 {
-        font-size: 2.4rem;
+        padding: 0 3rem;
+        grid-template-columns: repeat(3, 1fr);
     }
 }
