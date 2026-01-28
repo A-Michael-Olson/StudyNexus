@@ -94,6 +94,12 @@ body {
     background-color: #eef2ff;
 }
 
+.btn-login {
+    padding: 0.45rem 1.1rem;
+    font-size: 1rem;
+    justify-self: right;
+}
+
 /* ===== Hero Section ===== */
 .hero {
     width: 100%;
