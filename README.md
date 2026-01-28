@@ -2,7 +2,7 @@
 StudyNexus
 
 ## Team Members
- James Stolte, Mike Olson, Kaitlin Heusner, Joshua Moncada, Graham McClure
+ James Stolte, Mike Olson, Kaitlin Heusner, Graham McClure
  
 ## Software Description
 A group study planner/collaboration website that invites people working together to have
