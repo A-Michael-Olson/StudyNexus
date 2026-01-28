@@ -22,7 +22,6 @@
     --border-radius: 12px;
     --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.08);
 
-
     --transition: 0.2s ease-in-out;
 }
 
@@ -126,6 +125,28 @@ body {
     gap: 1rem;
 }
 
+/* ===== Login/Signup Containers ===== */
+.login-container,
+.signup-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 4rem auto;
+    padding: 2.5rem;
+    background-color: var(--bg-card);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-soft);
+}
+.login-container h1,
+.signup-container h1 {
+    justify-self: center;
+    color: var(--accent);
+}
+#email {
+    margin-right: 1.5rem;
+    margin-left: 1.754rem;
+    justify-self: right;
+}
+
 /* ===== Features ===== */
 .features {
     width: 100%;
@@ -187,3 +208,4 @@ footer {
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
