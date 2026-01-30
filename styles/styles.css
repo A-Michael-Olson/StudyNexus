@@ -95,6 +95,7 @@ body {
 }
 
 .btn-login {
+    margin-top: 1rem;
     padding: 0.45rem 1.1rem;
     font-size: 1rem;
     justify-self: right;
@@ -132,8 +133,18 @@ body {
 }
 
 /* ===== Login/Signup Containers ===== */
+.login-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+}
+
 .login-container,
 .signup-container {
+    grid-column: span 2;
     width: 100%;
     max-width: 400px;
     margin: 4rem auto;
@@ -142,15 +153,18 @@ body {
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-soft);
 }
-.login-container h1,
-.signup-container h1 {
+.login-box h1 {
+    grid-column: 1 / -1;
     justify-self: center;
     color: var(--accent);
+    margin-bottom: 1.5rem;
 }
-#email {
-    margin-right: 1.5rem;
-    margin-left: 1.754rem;
-    justify-self: right;
+
+.signup-link {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-align: center;
 }
 
 /* ===== Features ===== */
