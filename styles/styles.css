@@ -167,6 +167,53 @@ body {
     text-align: center;
 }
 
+/* ===== Form Layout (Centered & Contained) ===== */
+.login-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .login-box form {
+        width: 100%;
+        max-width: 340px; /* controls input length */
+    }
+
+.form-group {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+    .form-group label {
+        text-align: right;
+        font-weight: 500;
+        color: var(--text-secondary);
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 0.55rem 0.7rem;
+        border-radius: 6px;
+        border: 1px solid #d1d5db;
+        font-size: 0.95rem;
+    }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+        }
+
+.btn-login {
+    margin-top: 1rem;
+    align-self: flex-end;
+}
+
+
+
 /* ===== Features ===== */
 .features {
     width: 100%;
