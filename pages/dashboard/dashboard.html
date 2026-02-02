@@ -3,7 +3,83 @@ import { supabase } from "../../scripts/supabase.js";
 
 const { data: { user } } = await supabase.auth.getUser();
 
-if (!user) {
-    window.location.href = "../login/login.html";
-}
+///////////////////// DISABLED FOR TESTING; UNCOMMENT
+// if (!user) {
+//     window.location.href = "../login/login.html";
+// }
 </script>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Study Nexus</title>
+    <link rel="stylesheet" href="../../styles/styles.css" />
+    <link rel="icon" type="image/png" href="images/StudyNexus.png">
+</head>
+<body>
+    <div id="dashboard">
+        <div id="left-sidebar">
+            <!-- Task Sidebar -->
+            <article class="task-sidebar">
+                <h1 id="tasks-title">Tasks Sidebar</h1>
+                <div class="task-items">
+                    <article class="task">
+                        <h2 class="task-name">Task Name</p>
+                        <p class="task-content"></p>
+                    </article>
+                </div>
+            </article>
+            <!-- Channel Sidebar -->
+            <article class="channel-sidebar">
+                <h1 id="channels-title">Channels Sidebar</h1>
+                <div class="channel-list">
+                    <!-- Various channels -->
+                    <a>Channel 1</a>
+                    
+                </div>
+            </article>
+        </div>
+
+        <div id="group-content">
+            
+            <div class="group-header">
+                <h1 id="group-name">Group Name</h1>
+            </div>
+
+            <!-- Window for received/sent messages -->
+            <div id="chat-content">
+                
+                <!-- one message -->
+                <article class="message">
+                    <p class="message-username">Name 1</p>
+                    <p class="message-content">Content 1</p>
+                </article>
+                <!-- one message -->
+                <article class="message">
+                    <p class="message-username">Name 2</p>
+                    <p class="message-content">Content 2</p>
+                </article>
+
+            </div>
+
+            <!-- Message input/send box -->
+             <div id="input-bar">
+                <div class="textbox">
+                    <input id="textbox-input">
+                    <label for="textbox-input">Textbox Input</label>
+                </div>
+
+                <div class="send-msg">
+                    <input type="button" id="btn-send">
+                    <label for="btn-send">Send</label>
+                </div>
+                
+             </div>
+        </div>
+        <div id="users-sidebar">
+            <a>Username 1</a>
+            <a>Username 2</a>
+        </div>
+
+    </div>
+</body>

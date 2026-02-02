@@ -229,3 +229,21 @@ footer {
     }
 }
 
+
+/* ===== Dashboard ===== */
+
+#dashboard {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    min-height: 100%;
+}
+#left-sidebar {
+    background-color:red;
+    grid-column: 1/2;
+}
+#group-content {
+    grid-column: 2/3;
+}
+#users-sidebar {
+    grid-column: 3/4;
+}
