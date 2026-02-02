@@ -1,5 +1,15 @@
 import { supabase } from "./supabase.js";
 
+const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+if (sessionError) {
+  console.error(sessionError);
+}
+
+if (session) {
+  window.location.href = "../dashboard/dashboard.html";
+}
+
 const form = document.querySelector("form");
 
 form.addEventListener("submit", async (e) => {
