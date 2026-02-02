@@ -19,7 +19,8 @@ form.addEventListener("submit", async (e) => {
                 first_name: firstName,
                 last_name: lastName,
                 username: username
-            }
+            },
+            emailRedirectTo: 'https://a-michael-olson.github.io/StudyNexus/pages/login/login.html'
         }
     });
 
@@ -28,6 +29,7 @@ form.addEventListener("submit", async (e) => {
         return;
     }
 
-    alert("Account created! Please log in.");
-    window.location.href = "./login.html";
+    alert("Success! Please check your email inbox to confirm your account before logging in.");
+    
+    form.reset();
 });
