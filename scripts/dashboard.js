@@ -8,38 +8,91 @@ async function loadDashboard() {
     } = await supabase.auth.getUser();
 
     if (userError || !user) {
-        // Not logged in --> back to login
         window.location.href = "../login/login.html";
         return;
     }
 
-    // 2. Fetch groups owned by this user
-    const { data: groups, error } = await supabase
-        .from("groups")
-        .select("id, name")
-        .eq("owner_id", user.id);
+    // 2. Get groups this user belongs to
+    const { data: memberships, error: memberError } = await supabase
+        .from("group_members")
+        .select(`
+            group_id,
+            groups (
+                id,
+                name
+            )
+        `)
+        .eq("user_id", user.id);
+
+    if (memberError || memberships.length === 0) {
+        document.getElementById("group-name").textContent = "No groups";
+        return;
+    }
+
+    const activeGroup = memberships[0].groups;
+    document.getElementById("group-name").textContent = activeGroup.name;
+
+    // Store for later use
+    const groupId = activeGroup.id;
+
+    // 3. Load tasks
+    await loadTasks(groupId);
+
+    // 4. Load group members
+    await loadGroupMembers(groupId);
+}
+
+async function loadTasks(groupId) {
+    const { data: tasks, error } = await supabase
+        .from("tasks")
+        .select("id, title, description")
+        .eq("group_id", groupId);
 
     if (error) {
-        console.error("Error loading groups:", error);
+        console.error("Error loading tasks:", error);
         return;
     }
 
-    // 3. For now, just show the first group
-    if (groups.length === 0) {
-        document.getElementById("group-name").textContent =
-            "No groups yet";
+    const taskContainer = document.getElementById("task-items");
+    taskContainer.innerHTML = "";
+
+    tasks.forEach(task => {
+        const taskEl = document.createElement("article");
+        taskEl.classList.add("task");
+
+        taskEl.innerHTML = `
+            <h2 class="task-name">${task.title}</h2>
+            <p class="task-content">${task.description ?? ""}</p>
+        `;
+
+        taskContainer.appendChild(taskEl);
+    });
+}
+
+async function loadGroupMembers(groupId) {
+    const { data: members, error } = await supabase
+        .from("group_members")
+        .select(`
+            user_id,
+            profiles (
+                username
+            )
+        `)
+        .eq("group_id", groupId);
+
+    if (error) {
+        console.error("Error loading members:", error);
         return;
     }
 
-    const activeGroup = groups[0];
+    const userList = document.getElementById("user-list");
+    userList.innerHTML = "";
 
-    // 4. Plug group name into the UI
-    document.getElementById("group-name").textContent =
-        activeGroup.name;
-
-    // (Optional later)
-    // store activeGroup.id for tasks/messages
-    window.activeGroupId = activeGroup.id;
+    members.forEach(member => {
+        const userEl = document.createElement("div");
+        userEl.textContent = member.profiles?.username ?? "Unknown user";
+        userList.appendChild(userEl);
+    });
 }
 
 loadDashboard();
