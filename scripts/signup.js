@@ -14,7 +14,6 @@ form.addEventListener("submit", async (e) => {
         password,
         options: {
             data: {
-                last_name: lastName,
                 username: username
             },
             emailRedirectTo: 'https://a-michael-olson.github.io/StudyNexus/pages/login/login.html'
