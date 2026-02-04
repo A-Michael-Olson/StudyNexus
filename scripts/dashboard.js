@@ -24,23 +24,22 @@ async function loadDashboard() {
         `)
         .eq("user_id", user.id);
 
-    if (memberError || memberships.length === 0) {
+    if (memberError || !memberships || memberships.length === 0) {
         document.getElementById("group-name").textContent = "No groups";
         return;
     }
 
     const activeGroup = memberships[0].groups;
-    document.getElementById("group-name").textContent = activeGroup.name;
-
-    // Store for later use
     const groupId = activeGroup.id;
 
-    // 3. Load tasks
-    await loadTasks(groupId);
+    document.getElementById("group-name").textContent = activeGroup.name;
 
-    // 4. Load group members
-    await loadGroupMembers(groupId);
+    // 3. Load tasks & members
+    await loadTasks(groupId);
+    await loadGroupMembers(groupId, user.id);
 }
+
+/* ===================== TASKS ===================== */
 
 async function loadTasks(groupId) {
     const { data: tasks, error } = await supabase
@@ -69,13 +68,18 @@ async function loadTasks(groupId) {
     });
 }
 
-async function loadGroupMembers(groupId) {
+/* ===================== MEMBERS ===================== */
+
+async function loadGroupMembers(groupId, currentUserId) {
     const { data: members, error } = await supabase
         .from("group_members")
         .select(`
             user_id,
+            role,
             profiles (
-                username
+                username,
+                first_name,
+                last_name
             )
         `)
         .eq("group_id", groupId);
@@ -88,9 +92,23 @@ async function loadGroupMembers(groupId) {
     const userList = document.getElementById("user-list");
     userList.innerHTML = "";
 
-    members.forEach(member => {
+    members.forEach(({ user_id, role, profiles }) => {
         const userEl = document.createElement("div");
-        userEl.textContent = member.profiles?.username ?? "Unknown user";
+        userEl.classList.add("group-user");
+
+        const displayName =
+            profiles?.username ??
+            `${profiles?.first_name ?? ""} ${profiles?.last_name ?? ""}`.trim() ||
+            "Unknown User";
+
+        userEl.textContent = displayName;
+
+        // Highlight current user
+        if (user_id === currentUserId) {
+            userEl.classList.add("current-user");
+            userEl.textContent += " (you)";
+        }
+
         userList.appendChild(userEl);
     });
 }
