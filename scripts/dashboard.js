@@ -24,22 +24,23 @@ async function loadDashboard() {
         `)
         .eq("user_id", user.id);
 
-    if (memberError || !memberships || memberships.length === 0) {
+    if (memberError || memberships.length === 0) {
         document.getElementById("group-name").textContent = "No groups";
         return;
     }
 
     const activeGroup = memberships[0].groups;
-    const groupId = activeGroup.id;
-
     document.getElementById("group-name").textContent = activeGroup.name;
 
-    // 3. Load tasks & members
-    await loadTasks(groupId);
-    await loadGroupMembers(groupId, user.id);
-}
+    // Store for later use
+    const groupId = activeGroup.id;
 
-/* ===================== TASKS ===================== */
+    // 3. Load tasks
+    await loadTasks(groupId);
+
+    // 4. Load group members
+    await loadGroupMembers(groupId);
+}
 
 async function loadTasks(groupId) {
     const { data: tasks, error } = await supabase
@@ -68,16 +69,13 @@ async function loadTasks(groupId) {
     });
 }
 
-/* ===================== MEMBERS ===================== */
-
-async function loadGroupMembers(groupId, currentUserId) {
+async function loadGroupMembers(groupId) {
     const { data: members, error } = await supabase
         .from("group_members")
         .select(`
             user_id,
-            role,
             profiles (
-                username,
+                username
             )
         `)
         .eq("group_id", groupId);
@@ -90,23 +88,9 @@ async function loadGroupMembers(groupId, currentUserId) {
     const userList = document.getElementById("user-list");
     userList.innerHTML = "";
 
-    members.forEach(({ user_id, role, profiles }) => {
+    members.forEach(member => {
         const userEl = document.createElement("div");
-        userEl.classList.add("group-user");
-
-        const displayName =
-            profiles?.username ??
-            `${profiles?.first_name ?? ""} ${profiles?.last_name ?? ""}`.trim() ||
-            "Unknown User";
-
-        userEl.textContent = displayName;
-
-        // Highlight current user
-        if (user_id === currentUserId) {
-            userEl.classList.add("current-user");
-            userEl.textContent += " (you)";
-        }
-
+        userEl.textContent = member.profiles?.username ?? "Unknown user";
         userList.appendChild(userEl);
     });
 }
