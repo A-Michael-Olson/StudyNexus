@@ -5,8 +5,6 @@ const form = document.getElementById("signup-form");
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const firstName = document.getElementById("first-name").value.trim();
-    const lastName = document.getElementById("last-name").value.trim();
     const email = document.getElementById("email").value.trim();
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value;
@@ -16,7 +14,6 @@ form.addEventListener("submit", async (e) => {
         password,
         options: {
             data: {
-                first_name: firstName,
                 last_name: lastName,
                 username: username
             },
