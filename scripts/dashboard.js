@@ -74,11 +74,13 @@ async function loadGroupMembers(groupId) {
         .from("group_members")
         .select(`
             user_id,
-            profiles (
+            profiles!inner (
                 username
             )
         `)
         .eq("group_id", groupId);
+
+    console.log("Members:", members, "Error:", error);
 
     if (error) {
         console.error("Error loading members:", error);
@@ -90,7 +92,7 @@ async function loadGroupMembers(groupId) {
 
     members.forEach(member => {
         const userEl = document.createElement("div");
-        userEl.textContent = member.profiles?.username ?? "Unknown user";
+        userEl.textContent = member.profiles.username;
         userList.appendChild(userEl);
     });
 }
