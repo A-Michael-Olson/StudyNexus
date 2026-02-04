@@ -78,8 +78,6 @@ async function loadGroupMembers(groupId, currentUserId) {
             role,
             profiles (
                 username,
-                first_name,
-                last_name
             )
         `)
         .eq("group_id", groupId);
