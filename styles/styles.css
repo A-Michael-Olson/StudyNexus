@@ -282,7 +282,8 @@ footer {
 #dashboard {
     display: grid;
     grid-template-columns: 20% 60% 20%;
-    min-height: 100%;
+    grid-template-rows: 100%;
+    height: 100%;
 }
 #left-sidebar {
     background-color:red;
@@ -290,7 +291,40 @@ footer {
 }
 #group-content {
     grid-column: 2/3;
+    background-color: yellow;
 }
 #users-sidebar {
     grid-column: 3/4;
+    background-color: blue;
+}
+
+/* Text input stuff*/
+#input-bar {
+    position: absolute;
+    bottom: 0;
+    margin: 10px;
+}
+.textbox, .send-msg {
+    display: inline;
+}
+.send-msg button {
+    display: inline;
+    border: none;
+    background-color: orange;
+    text-align: center;
+}
+
+/* message stuff */
+
+.message {
+    display: block;
+    margin: 10px 20px 0 20px;
+    background-color: black;
+    padding: 10px;
+}
+.message p {
+    color:white;
+}
+.message-username {
+    font-weight: bold;
 }
