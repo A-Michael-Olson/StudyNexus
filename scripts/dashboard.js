@@ -74,7 +74,7 @@ async function loadGroupMembers(groupId) {
         .from("group_members")
         .select(`
             user_id,
-            profiles!inner (
+            profiles!group_members_user_id_fkey1 (
                 username
             )
         `)
