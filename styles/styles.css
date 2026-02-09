@@ -307,11 +307,15 @@ footer {
 .textbox, .send-msg {
     display: inline;
 }
-.send-msg button {
+#btn-send {
     display: inline;
     border: none;
     background-color: orange;
     text-align: center;
+    padding:0.5em;
+}
+#btn-send:hover {
+    background-color:darkorange;
 }
 
 /* message stuff */
