@@ -16,7 +16,7 @@ form.addEventListener("submit", async (e) => {
             data: {
                 username: username
             },
-            emailRedirectTo: 'https://a-michael-olson.github.io/StudyNexus/pages/login/login.html'
+            emailRedirectTo: 'https://a-michael-olson.github.io/StudyNexus/pages/login/landingpage.html'
         }
     });
 
