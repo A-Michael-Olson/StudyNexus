@@ -276,7 +276,6 @@ footer {
     }
 }
 
-
 /* ===== Dashboard ===== */
 
 #dashboard {
@@ -304,18 +303,28 @@ footer {
     bottom: 0;
     margin: 10px;
 }
-.textbox, .send-msg {
-    display: inline;
+.textbox, .group, .send-msg, .add-group {
+    display: inline-block;  
+    vertical-align: middle; 
+    margin-right: 5px;     
 }
-#btn-send {
-    display: inline;
+#textbox-input, #group-input {
+    padding: 0.5em;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+#btn-send, #btn-add-group {
+    display: inline-block;
     border: none;
     background-color: orange;
+    color: white;
     text-align: center;
-    padding:0.5em;
+    padding: 0.5em;
+    cursor: pointer;
 }
-#btn-send:hover {
-    background-color:darkorange;
+#btn-send:hover, #btn-add-group:hover {
+    background-color: darkorange;
 }
 
 /* message stuff */
