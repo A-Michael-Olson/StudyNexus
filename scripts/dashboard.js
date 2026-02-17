@@ -2,10 +2,12 @@ import { supabase } from "./supabase.js";
 
 async function loadDashboard() {
     // 1. Get logged-in user
-    const {
+const {
         data: { user },
         error: userError
     } = await supabase.auth.getUser();
+
+    window.currentUser = user; // store globally
 
     if (userError || !user) {
         window.location.href = "../login/login.html";
@@ -31,6 +33,9 @@ async function loadDashboard() {
 
     const activeGroup = memberships[0].groups;
     document.getElementById("group-name").textContent = activeGroup.name;
+    //Display group ID for debugging
+    document.getElementById("group-id-display").textContent =
+        `Group ID: ${activeGroup.id}`;
 
     // Store for later use
     const groupId = activeGroup.id;
@@ -96,5 +101,43 @@ async function loadGroupMembers(groupId) {
         userList.appendChild(userEl);
     });
 }
+
+async function joinGroup() {
+    const groupIdInput = document.getElementById("group-input");
+    const groupId = groupIdInput.value.trim();
+
+    if (!groupId) {
+        alert("Enter a group ID");
+        return;
+    }
+
+    const { error } = await supabase
+        .from("group_members")
+        .insert({
+            group_id: groupId,
+            user_id: window.currentUser.id
+        });
+
+    if (error) {
+        console.error("Join error:", error);
+        alert(error.message);
+        return;
+    }
+
+    alert("Joined group successfully");
+
+    groupIdInput.value = "";
+
+    await loadDashboard();
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const joinBtn = document.getElementById("btn-add-group");
+    if (joinBtn) {
+        joinBtn.addEventListener("click", joinGroup);
+    }
+});
+
 
 loadDashboard();
