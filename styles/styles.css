@@ -326,6 +326,23 @@ footer {
 #btn-send:hover, #btn-add-group:hover {
     background-color: darkorange;
 }
+/* taskbar */
+.task {
+    margin: 0.2em;
+    padding: 0.2em;
+    background-color: white;
+    border-radius: 5px;
+    /* line clamping */
+    max-height: 4.7em;
+    line-height: 1.5em;
+    overflow: hidden;
+}
+.task p {
+    margin:0;
+}
+.task:hover {
+    max-height: None;
+}
 
 /* message stuff */
 
