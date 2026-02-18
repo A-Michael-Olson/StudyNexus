@@ -292,10 +292,6 @@ footer {
     grid-column: 2/3;
     background-color: yellow;
 }
-#users-sidebar {
-    grid-column: 3/4;
-    background-color: blue;
-}
 
 /* Text input stuff*/
 #input-bar {
@@ -342,6 +338,24 @@ footer {
 }
 .task:hover {
     max-height: None;
+}
+/* user list */
+#users-sidebar {
+    grid-column: 3/4;
+    background-color: lightblue;
+}
+.user-item {
+    display:flex;
+    margin:0;
+    background-color:green;
+    padding:0;
+}
+.user-item img {
+    width: 1.5em;
+    height: 1.5em;
+    align-content:center;
+    margin:0;
+    padding:0;
 }
 
 /* message stuff */
