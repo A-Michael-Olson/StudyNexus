@@ -1,18 +1,19 @@
 import { supabase } from "./supabase.js";
+import { loadTasks, initializeTaskUI } from "./tasks.js";
 
 async function loadDashboard() {
     // 1. Get logged-in user
-const {
+    const {
         data: { user },
         error: userError
     } = await supabase.auth.getUser();
-
-    window.currentUser = user; // store globally
 
     if (userError || !user) {
         window.location.href = "../login/login.html";
         return;
     }
+
+    window.currentUser = user;
 
     // 2. Get groups this user belongs to
     const { data: memberships, error: memberError } = await supabase
@@ -28,50 +29,24 @@ const {
 
     if (memberError || !memberships || memberships.length === 0) {
         document.getElementById("group-name").textContent = "No groups";
+        document.getElementById("group-id-display").textContent = "";
         return;
     }
 
     const activeGroup = memberships[0].groups;
+
     document.getElementById("group-name").textContent = activeGroup.name;
-    //Display group ID for debugging
     document.getElementById("group-id-display").textContent =
         `Group ID: ${activeGroup.id}`;
 
-    // Store for later use
-    const groupId = activeGroup.id;
+    // Store globally so other modules can access
+    window.currentGroupId = activeGroup.id;
 
-    // 3. Load tasks
-    await loadTasks(groupId);
+    // 3. Load tasks (from tasks.js)
+    await loadTasks(window.currentGroupId);
 
     // 4. Load group members
-    await loadGroupMembers(groupId);
-}
-
-async function loadTasks(groupId) {
-    const { data: tasks, error } = await supabase
-        .from("tasks")
-        .select("id, title, description")
-        .eq("group_id", groupId);
-
-    if (error) {
-        console.error("Error loading tasks:", error);
-        return;
-    }
-
-    const taskContainer = document.querySelector(".task-list");
-    taskContainer.innerHTML = "";
-
-    tasks.forEach(task => {
-        const taskEl = document.createElement("article");
-        taskEl.classList.add("task");
-
-        taskEl.innerHTML = `
-            <h3>${task.title}</h3>
-            <p>${task.description ?? ""}</p>
-        `;
-
-        taskContainer.appendChild(taskEl);
-    });
+    await loadGroupMembers(window.currentGroupId);
 }
 
 async function loadGroupMembers(groupId) {
@@ -84,8 +59,6 @@ async function loadGroupMembers(groupId) {
             )
         `)
         .eq("group_id", groupId);
-
-    console.log("Members:", members, "Error:", error);
 
     if (error) {
         console.error("Error loading members:", error);
@@ -137,13 +110,16 @@ async function joinGroup() {
     await loadDashboard();
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
+    // Initialize task UI once
+    initializeTaskUI(() => window.currentGroupId);
+
+    // Join group button
     const joinBtn = document.getElementById("btn-add-group");
     if (joinBtn) {
         joinBtn.addEventListener("click", joinGroup);
     }
+
+    // Load everything
+    loadDashboard();
 });
-
-
-loadDashboard();

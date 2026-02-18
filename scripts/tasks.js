@@ -1,0 +1,105 @@
+import { supabase } from "./supabase.js";
+
+let editingTaskId = null;
+
+export async function loadTasks(groupId) {
+    const { data: tasks, error } = await supabase
+        .from("tasks")
+        .select("*")
+        .eq("group_id", groupId)
+        .order("due_date", { ascending: true });
+
+    if (error) {
+        console.error(error);
+        return;
+    }
+
+    const activeContainer = document.getElementById("active-tasks");
+    const completedContainer = document.getElementById("completed-tasks");
+
+    activeContainer.innerHTML = "";
+    completedContainer.innerHTML = "";
+
+    tasks.forEach(task => {
+        const taskEl = document.createElement("article");
+        taskEl.classList.add("task");
+
+        taskEl.innerHTML = `
+            <h3>${task.title}</h3>
+            <p>${task.description ?? ""}</p>
+            <small>Due: ${task.due_date ?? "No date"}</small>
+        `;
+
+        taskEl.addEventListener("click", () => openTaskModal(task));
+
+        if (task.is_completed) {
+            completedContainer.appendChild(taskEl);
+        } else {
+            activeContainer.appendChild(taskEl);
+        }
+    });
+}
+
+export function initializeTaskUI(getCurrentGroupId) {
+    document.getElementById("btn-add-task")
+        .addEventListener("click", () => openTaskModal());
+
+    document.getElementById("btn-close-task")
+        .addEventListener("click", closeTaskModal);
+
+    document.getElementById("btn-save-task")
+        .addEventListener("click", () => saveTask(getCurrentGroupId()));
+}
+
+function openTaskModal(task = null) {
+    document.getElementById("task-modal").classList.remove("hidden");
+
+    if (task) {
+        editingTaskId = task.id;
+        document.getElementById("modal-title").textContent = "Edit Task";
+        document.getElementById("task-title-input").value = task.title;
+        document.getElementById("task-desc-input").value = task.description ?? "";
+        document.getElementById("task-date-input").value = task.due_date ?? "";
+        document.getElementById("task-complete-input").checked = task.is_completed;
+    } else {
+        editingTaskId = null;
+        document.getElementById("modal-title").textContent = "New Task";
+        document.getElementById("task-title-input").value = "";
+        document.getElementById("task-desc-input").value = "";
+        document.getElementById("task-date-input").value = "";
+        document.getElementById("task-complete-input").checked = false;
+    }
+}
+
+function closeTaskModal() {
+    document.getElementById("task-modal").classList.add("hidden");
+}
+
+async function saveTask(groupId) {
+    const title = document.getElementById("task-title-input").value.trim();
+    const description = document.getElementById("task-desc-input").value.trim();
+    const due_date = document.getElementById("task-date-input").value;
+    const is_completed = document.getElementById("task-complete-input").checked;
+
+    if (!title) return alert("Task needs a title");
+
+    if (editingTaskId) {
+        await supabase
+            .from("tasks")
+            .update({ title, description, due_date, is_completed })
+            .eq("id", editingTaskId);
+    } else {
+        await supabase
+            .from("tasks")
+            .insert({
+                title,
+                description,
+                due_date,
+                is_completed,
+                group_id: groupId
+            });
+    }
+
+    closeTaskModal();
+    await loadTasks(groupId);
+}

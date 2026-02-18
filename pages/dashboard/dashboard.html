@@ -11,18 +11,21 @@
     <div id="dashboard">
         <div id="left-sidebar">
             <!-- Task Sidebar -->
-            
+
             <article class="task-items">
                 <h1 id="tasks-title">Tasks</h1>
-                <div class="task-list">
-                    <article class="task">
-                        <h3>Test_Task_Name</h3>
-                        <p>This is a description for a task.</p>
-                    </article>
-                    <article class="task">
-                        <h3>Test_Task_Name_2</h3>
-                        <p>This is a description for a second task.<br>Task 2 second description line.<br>Third line.</p>
-                    </article>
+                <button id="btn-add-task">+ Add Task</button>
+
+                <div class="task-columns">
+                    <div class="task-column">
+                        <h2>Active</h2>
+                        <div class="task-list" id="active-tasks"></div>
+                    </div>
+
+                    <div class="task-column">
+                        <h2>Completed</h2>
+                        <div class="task-list" id="completed-tasks"></div>
+                    </div>
                 </div>
             </article>
 
@@ -33,13 +36,13 @@
                 <div class="channel-list">
                     <!-- Various channels -->
                     <a>Channel 1</a>
-                    
+
                 </div>
             </article>
         </div>
 
         <div id="group-content">
-            
+
             <div class="group-header">
                 <h1 id="group-name">Group Name</h1>
                 <p id="group-id-display"></p>
@@ -47,7 +50,7 @@
 
             <!-- Window for received/sent messages -->
             <div id="chat-content">
-                
+
                 <!-- one message -->
                 <article class="message">
                     <p class="message-username">Name 1</p>
@@ -62,7 +65,7 @@
             </div>
 
             <!-- Message input/send box -->
-             <div id="input-bar">
+            <div id="input-bar">
                 <div class="textbox">
                     <input id="textbox-input">
                     <label for="textbox-input">Textbox Input</label>
@@ -77,7 +80,7 @@
                 <div class="add-group">
                     <button type="button" id="btn-add-group" onclick="">Add</button>
                 </div>
-             </div>
+            </div>
         </div>
         <div id="users-sidebar">
             <h2>Members</h2>
@@ -89,6 +92,25 @@
             </div>
         </div>
 
+    </div>
+    <div id="task-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modal-title">New Task</h2>
+
+            <input id="task-title-input" placeholder="Task name">
+            <textarea id="task-desc-input" placeholder="Description"></textarea>
+            <input type="date" id="task-date-input">
+
+            <label>
+                <input type="checkbox" id="task-complete-input">
+                Completed
+            </label>
+
+            <div class="modal-actions">
+                <button id="btn-save-task">Save</button>
+                <button id="btn-close-task">Cancel</button>
+            </div>
+        </div>
     </div>
     <script type="module" src="../../scripts/dashboard.js"></script>
 </body>
