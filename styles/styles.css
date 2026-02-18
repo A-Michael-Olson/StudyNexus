@@ -374,18 +374,19 @@ footer {
 }
 
 /* Task popup stuff */
-.hidden {
-    display: none;
-}
 
 .modal {
+    display: none; /* hidden by default */
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,.5);
-    display: flex;
     justify-content: center;
     align-items: center;
 }
+
+    .modal.active {
+        display: flex; /* visible when active */
+    }
 
 .modal-content {
     background: white;

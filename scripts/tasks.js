@@ -52,7 +52,7 @@ export function initializeTaskUI(getCurrentGroupId) {
 }
 
 function openTaskModal(task = null) {
-    document.getElementById("task-modal").classList.remove("hidden");
+    document.getElementById("task-modal").classList.add("active");
 
     if (task) {
         editingTaskId = task.id;
@@ -72,7 +72,7 @@ function openTaskModal(task = null) {
 }
 
 function closeTaskModal() {
-    document.getElementById("task-modal").classList.add("hidden");
+    document.getElementById("task-modal").classList.remove("active");
 }
 
 async function saveTask(groupId) {
