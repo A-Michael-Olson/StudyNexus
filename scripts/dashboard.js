@@ -59,7 +59,7 @@ async function loadTasks(groupId) {
     }
 
     const taskContainer = document.getElementById("task-items");
-    taskContainer.innerHTML = "";
+    task-items.innerHTML = "";
 
     tasks.forEach(task => {
         const taskEl = document.createElement("article");
@@ -70,7 +70,7 @@ async function loadTasks(groupId) {
             <p class="task-content">${task.description ?? ""}</p>
         `;
 
-        taskContainer.appendChild(taskEl);
+        task-items.appendChild(taskEl);
     });
 }
 
@@ -93,12 +93,12 @@ async function loadGroupMembers(groupId) {
     }
 
     const userList = document.getElementById("user-list");
-    userList.innerHTML = "";
+    users-sidebar.innerHTML = "";
 
     members.forEach(member => {
         const userEl = document.createElement("div");
         userEl.textContent = member.profiles.username;
-        userList.appendChild(userEl);
+        users-sidebar.appendChild(userEl);
     });
 }
 
