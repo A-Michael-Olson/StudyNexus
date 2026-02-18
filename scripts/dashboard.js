@@ -26,7 +26,7 @@ const {
         `)
         .eq("user_id", user.id);
 
-    if (memberError || memberships.length === 0) {
+    if (memberError || !memberships || memberships.length === 0) {
         document.getElementById("group-name").textContent = "No groups";
         return;
     }
@@ -58,7 +58,7 @@ async function loadTasks(groupId) {
         return;
     }
 
-    const taskContainer = document.getElementById("task-items");
+    const taskContainer = document.querySelector(".task-list");
     taskContainer.innerHTML = "";
 
     tasks.forEach(task => {
@@ -66,8 +66,8 @@ async function loadTasks(groupId) {
         taskEl.classList.add("task");
 
         taskEl.innerHTML = `
-            <h2 class="task-name">${task.title}</h2>
-            <p class="task-content">${task.description ?? ""}</p>
+            <h3>${task.title}</h3>
+            <p>${task.description ?? ""}</p>
         `;
 
         taskContainer.appendChild(taskEl);
@@ -79,7 +79,7 @@ async function loadGroupMembers(groupId) {
         .from("group_members")
         .select(`
             user_id,
-            profiles!group_members_user_id_fkey (
+            profiles (
                 username
             )
         `)
@@ -96,8 +96,14 @@ async function loadGroupMembers(groupId) {
     userList.innerHTML = "";
 
     members.forEach(member => {
-        const userEl = document.createElement("div");
-        userEl.textContent = member.profiles.username;
+        const userEl = document.createElement("article");
+        userEl.classList.add("user-item");
+
+        userEl.innerHTML = `
+            <img src="/images/studyNexus.png">
+            <h3>${member.profiles?.username ?? "Unknown"}</h3>
+        `;
+
         userList.appendChild(userEl);
     });
 }
