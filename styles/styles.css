@@ -4,24 +4,16 @@
 
 /* ===== Root Theme Variables ===== */
 :root {
-    /* Backgrounds */
     --bg-main: #f7f9fc;
     --bg-secondary: #eef2f7;
     --bg-card: #ffffff;
-
-    /* Text */
-    --text-primary: #111827;     /* near-black */
-    --text-secondary: #4b5563;   /* dark gray */
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
     --text-muted: #6b7280;
-
-    /* Accent */
     --accent: #2563eb;
     --accent-hover: #1d4ed8;
-
-    /* Utility */
     --border-radius: 12px;
     --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.08);
-
     --transition: 0.2s ease-in-out;
 }
 
@@ -33,8 +25,7 @@
 }
 
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     background-color: var(--bg-main);
     color: var(--text-primary);
     line-height: 1.6;
@@ -56,50 +47,31 @@ body {
     letter-spacing: 0.3px;
 }
 
-/* ===== Buttons ===== */
-.nav-actions {
-    display: flex;
-    gap: 0.75rem;
-    align-content: center;
+/* ===== Buttons (Unified) ===== */
+button {
+    font-family: inherit;
 }
 
-.btn {
-    padding: 0.55rem 1.3rem;
-    border-radius: var(--border-radius);
-    border: 1px solid transparent;
-    font-size: 0.95rem;
+.btn,
+#btn-send,
+#btn-add-group {
+    padding: 0.55rem 1.2rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
-}
-
-/* Primary (Sign Up, Get Started) */
-.btn.primary {
     background-color: var(--accent);
     color: white;
 }
 
-.btn.primary:hover {
-    background-color: var(--accent-hover);
-}
-
-/* Secondary (Log In) */
-.btn.secondary {
-    background-color: white;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-}
-
-.btn.secondary:hover {
-    background-color: #eef2ff;
-}
-
-.btn-login {
-    margin-top: 1rem;
-    padding: 0.45rem 1.1rem;
-    font-size: 1rem;
-    justify-self: right;
-}
+    .btn:hover,
+    #btn-send:hover,
+    #btn-add-group:hover {
+        background-color: var(--accent-hover);
+        transform: translateY(-1px);
+    }
 
 /* ===== Hero Section ===== */
 .hero {
@@ -109,287 +81,168 @@ body {
     text-align: center;
 }
 
-.hero h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 1.2rem;
-}
-
-.hero h1 .accent {
-    color: var(--accent);
-}
-
-.hero p {
-    max-width: 700px;
-    margin: 0 auto 2.5rem;
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-}
-
-.hero-actions {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-}
-
-/* ===== Login/Signup Containers ===== */
-.login-grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-    max-width: 900px;
-    margin: 4rem auto;
-    padding: 0 2rem;
-}
-
-.login-container,
-.signup-container {
-    grid-column: span 2;
-    width: 100%;
-    max-width: 400px;
-    margin: 4rem auto;
-    padding: 2.5rem;
-    background-color: var(--bg-card);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-soft);
-}
-.login-box h1 {
-    grid-column: 1 / -1;
-    justify-self: center;
-    color: var(--accent);
-    margin-bottom: 1.5rem;
-}
-
-.signup-link {
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    text-align: center;
-}
-
-/* ===== Form Layout (Centered & Contained) ===== */
-.login-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-    .login-box form {
-        width: 100%;
-        max-width: 340px; /* controls input length */
+    .hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1.2rem;
     }
 
-.form-group {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
+        .hero h1 .accent {
+            color: var(--accent);
+        }
 
-    .form-group label {
-        text-align: right;
-        font-weight: 500;
+    .hero p {
+        max-width: 700px;
+        margin: 0 auto 2.5rem;
+        font-size: 1.1rem;
         color: var(--text-secondary);
     }
 
-    .form-group input {
-        width: 100%;
-        padding: 0.55rem 0.7rem;
-        border-radius: 6px;
-        border: 1px solid #d1d5db;
-        font-size: 0.95rem;
-    }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
-        }
-
-.btn-login {
-    margin-top: 1rem;
-    align-self: flex-end;
-}
-
-
-
-/* ===== Features ===== */
-.features {
-    width: 100%;
-    margin: 4rem 0 6rem;
+/* ===== Dashboard Layout ===== */
+#dashboard {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    grid-template-columns: 240px 1fr 240px;
+    min-height: 100vh;
 }
 
-.feature-card {
+#left-sidebar,
+#users-sidebar {
     background-color: var(--bg-card);
-    padding: 2rem;
-    border-radius: var(--border-radius);
+    padding: 1.5rem;
     box-shadow: var(--shadow-soft);
+}
+
+#left-sidebar {
+    border-right: 1px solid #e5e7eb;
+}
+
+#users-sidebar {
+    border-left: 1px solid #e5e7eb;
+}
+
+#group-content {
+    padding: 2rem;
+}
+
+/* ===== Inputs ===== */
+#textbox-input,
+#group-input {
+    padding: 0.55rem 0.8rem;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
     transition: var(--transition);
 }
 
-.feature-card:hover {
-    transform: translateY(-4px);
-}
-
-.feature-card h3 {
-    margin-bottom: 0.75rem;
-    font-size: 1.2rem;
-}
-
-.feature-card p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-}
-
-/* ===== Footer ===== */
-footer {
-    background-color: var(--bg-secondary);
-    padding: 2rem;
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-}
-
-.logo-banner {
-    width: 100vw;
-    height: 160px; /* adjust if you want taller */
-    overflow: hidden;
-}
-
-.logo-banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* stretches nicely without distortion */
-    display: block;
-}
-
-/* ===== Responsive (Optional) ===== */
-@media (min-width: 700px) {
-    .hero,
-    .features {
-        padding: 0 3rem;
-        grid-template-columns: repeat(3, 1fr);
+    #textbox-input:focus,
+    #group-input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
     }
-}
 
-/* ===== Dashboard ===== */
-
-#dashboard {
-    display: grid;
-    grid-template-columns: 20% 60% 20%;
-    grid-template-rows: 100%;
-    height: 100%;
-}
-#left-sidebar {
-    background-color:red;
-    grid-column: 1/2;
-}
-#group-content {
-    grid-column: 2/3;
-    background-color: yellow;
-}
-
-/* Text input stuff*/
-#input-bar {
-    position: absolute;
-    bottom: 0;
-    margin: 10px;
-}
-.textbox, .group, .send-msg, .add-group {
-    display: inline-block;  
-    vertical-align: middle; 
-    margin-right: 5px;     
-}
-#textbox-input, #group-input {
-    padding: 0.5em;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-#btn-send, #btn-add-group {
-    display: inline-block;
-    border: none;
-    background-color: orange;
-    color: white;
-    text-align: center;
-    padding: 0.5em;
-    cursor: pointer;
-}
-#btn-send:hover, #btn-add-group:hover {
-    background-color: darkorange;
-}
-/* taskbar */
+/* ===== Tasks ===== */
 .task {
-    margin: 0.2em;
-    padding: 0.2em;
-    background-color: white;
-    border-radius: 5px;
-    /* line clamping */
-    max-height: 4.7em;
-    line-height: 1.5em;
-    overflow: hidden;
+    background-color: var(--bg-card);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
 }
-.task p {
-    margin:0;
-}
-.task:hover {
-    max-height: None;
-}
-/* user list */
-#users-sidebar {
-    grid-column: 3/4;
-    background-color: lightblue;
-}
+
+    .task:hover {
+        transform: translateY(-3px);
+    }
+
+    .task h3 {
+        margin-bottom: 0.4rem;
+        font-size: 1rem;
+    }
+
+    .task p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .task small {
+        color: var(--text-muted);
+    }
+
+/* ===== Users ===== */
 .user-item {
-    display:flex;
-    margin:0;
-    background-color:green;
-    padding:0;
-}
-.user-item img {
-    width: 1.5em;
-    height: 1.5em;
-    align-content:center;
-    margin:0;
-    padding:0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem;
+    border-radius: 8px;
+    transition: var(--transition);
 }
 
-/* message stuff */
+    .user-item:hover {
+        background-color: var(--bg-secondary);
+    }
 
+    .user-item img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+    }
+
+/* ===== Messages ===== */
 .message {
-    display: block;
-    margin: 10px 20px 0 20px;
-    background-color: black;
-    padding: 10px;
+    background-color: var(--bg-card);
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    margin: 0.8rem 0;
+    box-shadow: var(--shadow-soft);
 }
-.message p {
-    color:white;
-}
+
 .message-username {
-    font-weight: bold;
+    font-weight: 600;
+    color: var(--accent);
 }
 
-/* Task popup stuff */
-
+/* ===== Modal ===== */
 .modal {
-    display: none; /* hidden by default */
+    display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,.5);
+    background: rgba(0,0,0,.4);
     justify-content: center;
     align-items: center;
 }
 
     .modal.active {
-        display: flex; /* visible when active */
+        display: flex;
     }
 
 .modal-content {
-    background: white;
-    padding: 20px;
-    width: 300px;
+    background: var(--bg-card);
+    padding: 2rem;
+    width: 400px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-soft);
 }
+
+    .modal-content h2 {
+        margin-bottom: 1rem;
+    }
+
+    .modal-content input,
+    .modal-content textarea {
+        width: 100%;
+        margin-bottom: 1rem;
+        padding: 0.6rem;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+    }
+
+        .modal-content input:focus,
+        .modal-content textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+        }
