@@ -7,12 +7,12 @@ async function userProfile()
         error: userError
     } = await supabase.auth.getUser();
 
-    window.currentUser = user; // store globally
-
     if (userError || !user) {
         window.location.href = "../login/login.html";
         return;
     }
+
+    window.currentUser = user; // store globally
 
     const profileDiv = document.getElementById("profileUserName");
     const displayName = user.user_metadata?.full_name || user.email;
@@ -41,7 +41,7 @@ async function userGroups()
     groupDiv.innerHTML="";
 
     if (memberError || !memberships || memberships.length === 0) {
-        document.getElementById("group-name").textContent = "No groups";
+        groupDiv.innerHTML = "<p>No groups</p>"
         return;
     }
 
