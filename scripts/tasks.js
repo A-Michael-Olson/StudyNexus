@@ -49,6 +49,21 @@ export function initializeTaskUI(getCurrentGroupId) {
 
     document.getElementById("btn-save-task")
         .addEventListener("click", () => saveTask(getCurrentGroupId()));
+
+    // NEW: Close when clicking outside modal
+    const overlay = document.getElementById("task-modal-overlay");
+
+    overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) {
+            closeTaskModal();
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            closeTaskModal();
+        }
+    });
 }
 
 function openTaskModal(task = null) {
