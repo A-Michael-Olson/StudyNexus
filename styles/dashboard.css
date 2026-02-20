@@ -1,5 +1,5 @@
 /* ======================================================
-   Study Nexus – Dashboard Styles
+   Study Nexus ï¿½ Dashboard Styles
    ====================================================== */
 
 
@@ -179,6 +179,6 @@
     transition: var(--transition);
 }
 
-    .channel-list a:hover {
-        background-color: var(--bg-secondary);
-    }
+.channel-list a:hover {
+    background-color: var(--bg-secondary);
+}
