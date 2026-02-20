@@ -90,10 +90,14 @@ textarea {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.4);
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 }
+
+    .modal-overlay.active {
+        display: flex;
+    }
 
 .modal {
     background: var(--bg-card);
