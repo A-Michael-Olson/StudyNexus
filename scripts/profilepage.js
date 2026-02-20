@@ -35,7 +35,6 @@ async function userGroups()
         )
     `)
     .eq("user_id", user.id);
-
     
     const groupDiv = document.getElementById("userGroups");
     groupDiv.innerHTML="";
@@ -52,9 +51,9 @@ async function userGroups()
         article.innerHTML = 
         `
         <div class="group-content">
-                <p>Group Name: ${group.name}</p>
-                <p>Group ID: ${group.id}</p>
-            </div>
+            <p>Group Name: ${group.name}</p>
+            <p>Group ID: ${group.id}</p>
+        </div>
         `;
 
         groupDiv.appendChild(article);
