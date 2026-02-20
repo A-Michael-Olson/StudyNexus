@@ -1,0 +1,184 @@
+/* ======================================================
+   Study Nexus – Dashboard Styles
+   ====================================================== */
+
+
+/* ======================================================
+   1 DASHBOARD LAYOUT
+   ====================================================== */
+
+#dashboard {
+    display: grid;
+    grid-template-columns: 240px 1fr 240px;
+    min-height: 100vh;
+}
+
+#left-sidebar,
+#users-sidebar {
+    background-color: var(--bg-card);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-soft);
+}
+
+#left-sidebar {
+    border-right: 1px solid #e5e7eb;
+}
+
+#users-sidebar {
+    border-left: 1px solid #e5e7eb;
+}
+
+#group-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ======================================================
+   2 GROUP HEADER (Group Name + ID)
+   ====================================================== */
+
+.group-header {
+    margin-bottom: 1.5rem;
+}
+
+#group-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+#group-id-display {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+
+/* ======================================================
+   3 CHAT / MESSAGE AREA
+   ====================================================== */
+
+#chat-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+/* message styling moved from main css */
+.message {
+    background-color: var(--bg-card);
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    margin: 0.8rem 0;
+    box-shadow: var(--shadow-soft);
+}
+
+.message-username {
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.message-content {
+    margin-top: 0.25rem;
+    font-size: 0.95rem;
+}
+
+
+/* ======================================================
+   4 MESSAGE INPUT BAR
+   ====================================================== */
+
+#input-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.textbox,
+.group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.send-msg,
+.add-group {
+    display: flex;
+    align-items: flex-end;
+}
+
+
+/* ======================================================
+   5 GROUP JOIN SECTION
+   ====================================================== */
+
+#group-input {
+    width: 100%;
+}
+
+#btn-add-group {
+    white-space: nowrap;
+}
+
+
+/* ======================================================
+   6 MEMBERS SIDEBAR
+   ====================================================== */
+
+#users-sidebar h2 {
+    margin-bottom: 1rem;
+}
+
+#user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* moved from main css */
+.user-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+    .user-item:hover {
+        background-color: var(--bg-secondary);
+    }
+
+    .user-item img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+    }
+
+
+/* ======================================================
+   7 CHANNEL SIDEBAR (Left Sidebar Extra Section)
+   ====================================================== */
+
+.channel-sidebar {
+    margin-top: 2rem;
+}
+
+#channels-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+}
+
+.channel-list a {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+    .channel-list a:hover {
+        background-color: var(--bg-secondary);
+    }
