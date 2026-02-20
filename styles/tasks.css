@@ -1,0 +1,81 @@
+/* ======================================================
+   Tasks Page Styles
+   ====================================================== */
+
+/* ===== Task Sidebar Wrapper ===== */
+.task-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* ===== Section Title ===== */
+#tasks-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+/* ===== Add Task Button Spacing ===== */
+#btn-add-task {
+    align-self: flex-start;
+}
+
+/* ===== Task Columns Layout ===== */
+.task-columns {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.task-column {
+    flex: 1;
+}
+
+    .task-column h2 {
+        margin-bottom: 0.8rem;
+        font-size: 1rem;
+        color: var(--text-secondary);
+    }
+
+/* ===== Task List Container ===== */
+.task-list {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== Individual Task Card ===== */
+.task {
+    background-color: var(--bg-card);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+    .task:hover {
+        transform: translateY(-3px);
+    }
+
+    .task h3 {
+        margin-bottom: 0.4rem;
+        font-size: 1rem;
+    }
+
+    .task p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .task small {
+        color: var(--text-muted);
+    }
+
+/* ===== Modal Action Buttons ===== */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
