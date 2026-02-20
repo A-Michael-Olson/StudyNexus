@@ -34,6 +34,23 @@
     flex-direction: column;
 }
 
+/* ======================================================
+   NAVIGATION (Sticky Header)
+   ====================================================== */
+
+#header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 3em;
+    background-color: var(--accent);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    align-items: center;
+    gap: 100px;
+    padding: 0 1.5rem;
+}
+
 
 /* ======================================================
    2 GROUP HEADER (Group Name + ID)
