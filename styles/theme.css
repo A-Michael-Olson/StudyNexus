@@ -38,6 +38,39 @@ body {
 
 
 /* ======================================================
+   NAVIGATION
+   ====================================================== */
+
+#header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 3em;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background-color: var(--accent);
+    box-shadow: var(--shadow-soft);
+}
+
+.nav-logo {
+    max-height: 3em;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+    .nav-link:hover {
+        opacity: 0.85;
+    }
+
+
+/* ======================================================
    BUTTON SYSTEM (Reusable Component)
    ====================================================== */
 
