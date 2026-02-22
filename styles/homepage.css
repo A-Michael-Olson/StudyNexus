@@ -1,0 +1,116 @@
+/* ======================================================
+   HOMEPAGE
+   ====================================================== */
+
+/* Page Layout */
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Logo Banner */
+.logo-banner {
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1rem 1rem 1rem;
+}
+
+    .logo-banner img {
+        max-width: 320px;
+        height: auto;
+    }
+
+
+/* Top Nav (Login / Signup Buttons) */
+.nav {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 2rem;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 5rem 1.5rem 4rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    background: linear-gradient( 180deg, rgba(0,0,0,0.02) 0%, transparent 100% );
+}
+
+    .hero h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 1.2rem;
+        line-height: 1.2;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        max-width: 650px;
+        margin: 0 auto 2rem auto;
+    }
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+
+/* Accent Word */
+.accent {
+    color: var(--accent);
+}
+
+
+/* Features Section */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    padding: 4rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 14px;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition);
+    text-align: center;
+}
+
+    .feature-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .feature-card h3 {
+        margin-bottom: 0.75rem;
+        font-size: 1.2rem;
+    }
+
+    .feature-card p {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+    }
+
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
