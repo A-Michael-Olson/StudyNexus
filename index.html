@@ -12,12 +12,6 @@
 <body>
     <header class="hero-banner">
         <img src="images/StudyNexusLogo.png" alt="Study Nexus Logo" class="hero-logo">
-
-        <div class="hero-top-actions">
-            <button class="btn ghost" onclick="goToLogin()">Log In</button>
-            <button class="btn primary" onclick="goToSignUp()">Sign Up</button>
-        </div>
-
         <div class="hero-content">
             <h1>Your tasks. Your team. One <span class="accent">Nexus</span>.</h1>
             <p>
@@ -26,8 +20,8 @@
             </p>
 
             <div class="hero-actions">
-                <button class="btn primary" onclick="goToLogin()">Get Started</button>
-                <button class="btn secondary" onclick="scrollToFeatures()">Learn More</button>
+                <button class="btn primary" onclick="goToSignUp()">Get Started</button>
+                <button class="btn secondary" onclick="goToLogin()">Log In</button>
             </div>
         </div>
     </header>
@@ -85,10 +79,6 @@
     function goToSignUp() {
         // Placeholder for future authentication
         window.location.href = "pages/login/signup.html";
-    }
-
-    function scrollToFeatures() {
-        document.getElementById("features").scrollIntoView({ behavior: "smooth" });
     }
 </script>
 
