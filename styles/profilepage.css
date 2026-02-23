@@ -6,7 +6,8 @@
 /* ======================================================
    GROUP LAYOUT
    ====================================================== */
-#group-content {
+
+.group-content {
     background-color: var(--bg-card);
     padding: 0.8rem 1rem;
     border-radius: 10px;
