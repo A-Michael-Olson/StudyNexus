@@ -60,6 +60,43 @@ async function userGroups()
     });
 }
 
+async function joinGroup() {
+    const groupIdInput = document.getElementById("group-input");
+    const groupId = groupIdInput.value.trim();
+
+    if (!groupId) {
+        alert("Enter a group ID");
+        return;
+    }
+
+    const { error } = await supabase
+        .from("group_members")
+        .insert({
+            group_id: groupId,
+            user_id: window.currentUser.id
+        });
+
+    if (error) {
+        console.error("Join error:", error);
+        alert(error.message);
+        return;
+    }
+
+    alert("Joined group successfully");
+
+    groupIdInput.value = "";
+
+    await loadDashboard();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Join group button
+    const joinBtn = document.getElementById("btn-add-group");
+    if (joinBtn) {
+        joinBtn.addEventListener("click", joinGroup);
+    }
+});
+
 userProfile().then(()=> {
     userGroups();
 });
