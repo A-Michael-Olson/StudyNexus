@@ -116,8 +116,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Change username button
     const changeBtn = document.getElementById("btn-change-group");
     if (changeBtn) changeBtn.addEventListener("click", changeUsername);
-});
 
-userProfile().then(()=> {
+    userProfile().then(()=> {
     userGroups();
+    });
 });
+;
