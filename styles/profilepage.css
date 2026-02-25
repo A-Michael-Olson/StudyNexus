@@ -8,15 +8,12 @@
    ====================================================== */
 #profileHeader{
    display: flex;
-   justify-content: center;
+   flex-direction: column;  
+   align-items: center;    
    padding: 2rem 0;
 }
 
-#profileUserName{
-   align-self: center;
-}
-
-#userGroups{
+#user-groups{
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(250px, 350px));
    gap: 1.5rem;
@@ -31,7 +28,7 @@
    box-shadow: var(--shadow-soft);
 }
 
-.addGroup{
+.add-group{
    display: flex;
    align-items: center;
    gap: 0.75rem;

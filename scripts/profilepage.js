@@ -36,7 +36,7 @@ async function userGroups()
     `)
     .eq("user_id", user.id);
     
-    const groupDiv = document.getElementById("userGroups");
+    const groupDiv = document.getElementById("user-groups");
     groupDiv.innerHTML="";
 
     if (memberError || !memberships || memberships.length === 0) {
@@ -86,7 +86,24 @@ async function joinGroup() {
 
     groupIdInput.value = "";
 
-    await loadDashboard();
+    await userGroups();
+}
+
+async function changeUsername() {
+    const newUsername = prompt("Enter new username:");
+    if (!newUsername) return;
+
+    const { error } = await supabase
+        .from('profiles')
+        .update({ username: newUsername })
+        .eq('id', window.currentUser.id);
+
+    if (error) {
+        alert("Error: " + error.message);
+        return;
+    }
+
+    alert("Username updated!");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -95,6 +112,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (joinBtn) {
         joinBtn.addEventListener("click", joinGroup);
     }
+
+    // Change username button
+    const changeBtn = document.getElementById("btn-change-group");
+    if (changeBtn) changeBtn.addEventListener("click", changeUsername);
 });
 
 userProfile().then(()=> {
