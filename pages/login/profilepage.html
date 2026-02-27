@@ -11,12 +11,22 @@
 <body>
     <header>
         <nav>
-            <div>
+            <div id="profileHeader">
                 <img id="logo" src="../../images/StudyNexusLogo.png" alt="Study Nexus Logo">
+                <h2 id="profile-user-name"></h2>
+                <h2 id="profile-email"></h2>
             </div>
         </nav>
     </header>
-    <div id="profileUserName"></div>
-    <div id="userGroups"></div>
+    <div id="user-groups"></div>
+    <div class="user-change">
+        <div class="group-input">
+            <input id="group-input">
+            <button type="button" id="btn-add-group" class="btn" onclick="">Add Group</button>
+        </div>
+        <div id="change-username">
+            <button type="button" id="btn-change-group" class="btn">Change Username</button>
+        </div>
+    </div>
 </body>
 </html>

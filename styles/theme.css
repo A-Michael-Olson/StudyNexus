@@ -1,5 +1,5 @@
 /* ======================================================
-   Study Nexus – Global Theme Styles
+   Study Nexus ï¿½ Global Theme Styles
    ====================================================== */
 
 
@@ -15,7 +15,8 @@
     --bg-secondary: #f3f4f6;
     --text-primary: #111827;
     --text-muted: #6b7280;
-    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
+    /* --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05); */
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.5);
     --transition: 0.2s ease;
 }
 
@@ -35,6 +36,39 @@ body {
     background-color: var(--bg-main);
     color: var(--text-primary);
 }
+
+
+/* ======================================================
+   NAVIGATION
+   ====================================================== */
+
+#header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 3em;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background-color: var(--accent);
+    box-shadow: var(--shadow-soft);
+}
+
+.nav-logo {
+    max-height: 3em;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+    .nav-link:hover {
+        opacity: 0.85;
+    }
 
 
 /* ======================================================
@@ -67,7 +101,7 @@ input,
 textarea {
     padding: 0.5rem 0.8rem;
     border-radius: 8px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--accent);
     font-size: 0.9rem;
     outline: none;
     transition: var(--transition);
@@ -75,11 +109,11 @@ textarea {
     color: var(--text-primary);
 }
 
-    input:focus,
-    textarea:focus {
-        border-color: var(--accent);
-        box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
-    }
+input:focus,
+textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
 
 
 /* ======================================================

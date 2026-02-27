@@ -21,17 +21,34 @@
 }
 
 #left-sidebar {
-    border-right: 1px solid #e5e7eb;
+    border-right: 1px solid var(--accent);
 }
 
 #users-sidebar {
-    border-left: 1px solid #e5e7eb;
+    border-left: 1px solid var(--accent);
 }
 
 #group-content {
     padding: 2rem;
     display: flex;
     flex-direction: column;
+}
+
+/* ======================================================
+   NAVIGATION (Sticky Header)
+   ====================================================== */
+
+#header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 3em;
+    background-color: var(--accent);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    align-items: center;
+    gap: 100px;
+    padding: 0 1.5rem;
 }
 
 
@@ -72,6 +89,7 @@
     border-radius: 10px;
     margin: 0.8rem 0;
     box-shadow: var(--shadow-soft);
+    border: 2px solid var(--accent);
 }
 
 .message-username {
@@ -94,6 +112,7 @@
     align-items: center;
     gap: 0.75rem;
     margin-top: 1rem;
+    padding: 0 1rem 0 1rem;
 }
 
 .textbox,
@@ -147,15 +166,15 @@
     transition: var(--transition);
 }
 
-    .user-item:hover {
-        background-color: var(--bg-secondary);
-    }
+.user-item:hover {
+    background-color: var(--bg-secondary);
+}
 
-    .user-item img {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-    }
+.user-item img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
 
 
 /* ======================================================

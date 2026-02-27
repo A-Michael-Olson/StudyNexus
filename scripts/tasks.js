@@ -49,10 +49,31 @@ export function initializeTaskUI(getCurrentGroupId) {
 
     document.getElementById("btn-save-task")
         .addEventListener("click", () => saveTask(getCurrentGroupId()));
+
+    document.getElementById("btn-delete-task")
+        .addEventListener("click", () => deleteTask(getCurrentGroupId()));
+
+    // NEW: Close when clicking outside modal
+    const overlay = document.getElementById("task-modal-overlay");
+
+    overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) {
+            closeTaskModal();
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            closeTaskModal();
+        }
+    });
 }
 
 function openTaskModal(task = null) {
-    document.getElementById("task-modal-overlay").classList.add("active");
+    const overlay = document.getElementById("task-modal-overlay");
+    const deleteBtn = document.getElementById("btn-delete-task");
+
+    overlay.classList.add("active");
 
     if (task) {
         editingTaskId = task.id;
@@ -61,6 +82,8 @@ function openTaskModal(task = null) {
         document.getElementById("task-desc-input").value = task.description ?? "";
         document.getElementById("task-date-input").value = task.due_date ?? "";
         document.getElementById("task-complete-input").checked = task.is_completed;
+
+        deleteBtn.style.display = "inline-block";
     } else {
         editingTaskId = null;
         document.getElementById("modal-title").textContent = "New Task";
@@ -68,6 +91,8 @@ function openTaskModal(task = null) {
         document.getElementById("task-desc-input").value = "";
         document.getElementById("task-date-input").value = "";
         document.getElementById("task-complete-input").checked = false;
+
+        deleteBtn.style.display = "none";
     }
 }
 
@@ -99,6 +124,22 @@ async function saveTask(groupId) {
                 group_id: groupId
             });
     }
+
+    closeTaskModal();
+    await loadTasks(groupId);
+}
+
+
+async function deleteTask(groupId) {
+    if (!editingTaskId) return;
+
+    const confirmDelete = confirm("Are you sure you want to delete this task?");
+    if (!confirmDelete) return;
+
+    await supabase
+        .from("tasks")
+        .delete()
+        .eq("id", editingTaskId);
 
     closeTaskModal();
     await loadTasks(groupId);

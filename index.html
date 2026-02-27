@@ -5,36 +5,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Study Nexus</title>
-    <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="stylesheet" href="styles/theme.css" />
+    <link rel="stylesheet" href="styles/homepage.css" />
     <link rel="icon" type="image/png" href="images/StudyNexus.png">
 </head>
 <body>
+    <header class="hero-banner">
+        <img src="images/StudyNexusLogo.png" alt="Study Nexus Logo" class="hero-logo">
+        <div class="hero-content">
+            <h1>Your tasks. Your team. One <span class="accent">Nexus</span>.</h1>
+            <p>
+                Study Nexus brings assignments, deadlines, and study groups
+                into one shared workspace. Plan smarter. Stress less.
+            </p>
 
-    <header class="logo-banner">
-        <img src="images/StudyNexusLogo.png" alt="Study Nexus Logo">
+            <div class="hero-actions">
+                <button class="btn primary" onclick="goToSignUp()">Get Started</button>
+                <button class="btn secondary" onclick="goToLogin()">Log In</button>
+            </div>
+        </div>
     </header>
-    
-<!-- Navigation -->
-<header class="nav">
-    <div class="nav-actions">
-        <button class="btn ghost" onclick="goToLogin()">Log In</button>
-        <button class="btn primary" onclick="goToSignUp()">Sign Up</button>
-    </div>
-</header>
-
-<!-- Hero Section -->
-<main class="hero">
-    <h1>Your tasks. Your team. One <span class="accent">Nexus</span>.</h1>
-    <p>
-        Study Nexus brings your assignments, deadlines, and study groups
-        into one shared workspace. Plan smarter. Stress less.
-    </p>
-
-    <div class="hero-actions">
-        <button class="btn primary" onclick="goToLogin()">Get Started</button>
-        <button class="btn secondary" onclick="scrollToFeatures()">Learn More</button>
-    </div>
-</main>
 
 <!-- Features -->
 <section class="features" id="features">
@@ -54,6 +44,27 @@
     </div>
 </section>
 
+<section class="how-it-works">
+    <h2>How Study Nexus Works</h2>
+
+    <div class="steps">
+        <div class="step">
+            <h4>1. Create a Group</h4>
+            <p>Start a workspace for your class, project, or study team.</p>
+        </div>
+
+        <div class="step">
+            <h4>2. Add Tasks</h4>
+            <p>Track assignments, deadlines, and responsibilities together.</p>
+        </div>
+
+        <div class="step">
+            <h4>3. Stay Organized</h4>
+            <p>Keep everyone aligned with a simple shared dashboard.</p>
+        </div>
+    </div>
+</section>
+
 <!-- Footer -->
 <footer>
     <p>&copy; 2026 Study Nexus. All rights reserved.</p>
@@ -68,10 +79,6 @@
     function goToSignUp() {
         // Placeholder for future authentication
         window.location.href = "pages/login/signup.html";
-    }
-
-    function scrollToFeatures() {
-        document.getElementById("features").scrollIntoView({ behavior: "smooth" });
     }
 </script>
 

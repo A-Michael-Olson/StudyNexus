@@ -10,16 +10,67 @@
     <link rel="icon" type="image/png" href="images/StudyNexus.png">
 </head>
 <body>
+    <script>
+        var dark_mode = false;
+        var first_click = true;
+        var root = document.querySelector(':root');
+        // light theme init
+        var light_bg_main      = "";
+        var light_bg_card      = "";
+        var light_bg_secondary = "";
+        var light_text_primary = "";
+        var light_shadow_soft  = "";
+        function toggle_theme() {
+            // fetch light theme (current)
+            if (first_click) {
+                console.log("first click")
+                let style = window.getComputedStyle(document.body); 
+                // get light theme through default current colors
+                light_bg_main      = style.getPropertyValue("--bg-main");
+                light_bg_card      = style.getPropertyValue("--bg-card");
+                light_bg_secondary = style.getPropertyValue("--bg-secondary");
+                light_text_primary = style.getPropertyValue("--text-primary");
+                light_shadow_soft  = style.getPropertyValue("--shadow-soft");
+                first_click = false;
+                console.log("set light vars");
+            }
+            let root = document.querySelector(':root');
+
+            if (dark_mode) {
+                console.log("Setting light theme")
+                // light mode
+                
+                root.style.setProperty("--bg-main",      light_bg_main);
+                root.style.setProperty("--bg-card",      light_bg_card);
+                root.style.setProperty("--bg-secondary", light_bg_secondary);
+                root.style.setProperty("--text-primary", light_text_primary); 
+                root.style.setProperty("--shadow-soft",  light_shadow_soft);
+                dark_mode = false;
+            } else {
+                console.log("setting dark theme")
+                // dark mode
+                root.style.setProperty("--bg-main", "#151518");
+                root.style.setProperty("--bg-card", "#151c2c");
+                root.style.setProperty("--bg-secondary", "#000000");
+                root.style.setProperty("--text-primary","#cecece"); 
+                root.style.setProperty("--shadow-soft", "0 4px 10px rgba(56, 16, 158, 1)");
+
+                dark_mode = true;
+            }
+        }
+    </script>
+
     <!-- navigation header -->
-    <nav id="header" style="position: relative; height: 3em; background-color: var(--accent); box-shadow: var(--shadow-soft); display:flex; gap:100px; align-items: center;">
-        <a href="/index.html">
-            <img style="max-height:3em;" src="/images/StudyNexus.png" alt="Study Nexus">
+    <nav id="header">
+        <a href="../../index.html">
+            <img class="nav-logo" src="../../images/StudyNexus.png" alt="Study Nexus">
         </a>
-        <a style="text-decoration: none; color:white; font-weight: 600;" class="nav-link" href="/index.html">HOME</a>
-        <a style="text-decoration: none; color:white; font-weight: 600;" class="nav-link" href="/pages/login/login.html">LOGIN</a>
-        <a style="text-decoration: none; color:white; font-weight: 600;" class="nav-link" href="/pages/login/signup.html">SIGNUP</a>
-        <a style="text-decoration: none; color:white; font-weight: 600;" class="nav-link" href="/pages/login/profilepage.html">PROFILE</a>
-        
+
+        <a class="nav-link" href="../../index.html">HOME</a>
+        <a class="nav-link" href="../login/login.html">LOGIN</a>
+        <a class="nav-link" href="../login/signup.html">SIGNUP</a>
+        <a class="nav-link" href="../login/profilepage.html">PROFILE</a>
+        <button type="button" id="theme-toggle" onclick="toggle_theme()">Toggle light/dark</button>
     </nav>
     <div id="dashboard">
         <div id="left-sidebar">
@@ -86,13 +137,6 @@
                 <div class="send-msg">
                     <button type="button" id="btn-send" onclick="">Send</button>
                 </div>
-                <div class="group">
-                    <input id="group-input">
-                    <label for="group-input">Add Group</label>
-                </div>
-                <div class="add-group">
-                    <button type="button" id="btn-add-group" onclick="">Add</button>
-                </div>
             </div>
         </div>
         <div id="users-sidebar">
@@ -122,8 +166,10 @@
             <div class="modal-actions">
                 <button id="btn-save-task" class="btn">Save</button>
                 <button id="btn-close-task" class="btn">Cancel</button>
+                <button id="btn-delete-task" class="btn danger">Delete</button>
             </div>
         </div>
     </div>
-    <!-- <script type="module" src="../../scripts/dashboard.js"></script> -->
+     <script type="module" src="../../scripts/dashboard.js"></script>
 </body>
+</html>

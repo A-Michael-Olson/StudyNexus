@@ -1,0 +1,103 @@
+/* ======================================================
+   Study Nexus – Auth Pages (Login / Signup)
+   ====================================================== */
+
+/* ===== Center Page Layout ===== */
+
+.login-container,
+.signup-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-main);
+    padding: 2rem;
+}
+
+
+/* ===== Auth Box ===== */
+
+.login-box {
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--bg-card);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+}
+
+
+    /* ===== Title ===== */
+
+    .login-box h1 {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+
+
+/* ===== Form Layout ===== */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+
+/* ===== Label + Input Alignment ===== */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+    .form-group label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-muted);
+    }
+
+
+/* ===== Button Styling ===== */
+
+.btn-login {
+    margin-top: 0.5rem;
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--accent);
+    color: white;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+    .btn-login:hover {
+        background-color: var(--accent-hover);
+        transform: translateY(-1px);
+    }
+
+
+/* ===== Bottom Link ===== */
+
+.signup-link {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+    .signup-link a {
+        color: var(--accent);
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
