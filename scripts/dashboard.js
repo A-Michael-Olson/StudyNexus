@@ -1,5 +1,6 @@
 import { supabase } from "./supabase.js";
 import { loadTasks, initializeTaskUI } from "./tasks.js";
+import { initializeChat } from "./messages.js";
 
 async function loadDashboard() {
     // 1. Get logged-in user
@@ -47,6 +48,9 @@ async function loadDashboard() {
 
     // 4. Load group members
     await loadGroupMembers(window.currentGroupId);
+
+    // 5. Initialize chat (from messages.js)
+    await initializeChat(() => window.currentGroupId);
 }
 
 async function loadGroupMembers(groupId) {

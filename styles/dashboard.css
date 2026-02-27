@@ -76,29 +76,75 @@
    3 CHAT / MESSAGE AREA
    ====================================================== */
 
+#group-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0; /* important for proper scrolling */
+}
+
 #chat-content {
     flex: 1;
     overflow-y: auto;
     padding-right: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-height: 0; /* prevents flex overflow bugs */
 }
 
-/* message styling moved from main css */
+/* message styling */
 .message {
     background-color: var(--bg-card);
     padding: 0.8rem 1rem;
     border-radius: 10px;
-    margin: 0.8rem 0;
     box-shadow: var(--shadow-soft);
+    max-width: 75%;
+    word-wrap: break-word;
 }
 
 .message-username {
     font-weight: 600;
     color: var(--accent);
+    margin-bottom: 0.25rem;
 }
 
 .message-content {
-    margin-top: 0.25rem;
     font-size: 0.95rem;
+}
+
+.message.self {
+    align-self: flex-end;
+    background-color: var(--accent);
+    color: white;
+}
+
+
+/* ======================================================
+   MESSAGE DELETE BUTTON
+   ====================================================== */
+
+.message {
+    position: relative; /* needed for absolute X */
+}
+
+.message-delete {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: var(--transition);
+    color: var(--text-muted);
+}
+
+.message:hover .message-delete {
+    opacity: 1;
+}
+
+.message-delete:hover {
+    color: red;
 }
 
 
@@ -108,8 +154,10 @@
 
 #input-bar {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
     margin-top: 1rem;
 }
 
@@ -118,6 +166,11 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+}
+
+#textbox-input,
+#group-input {
+    width: 100%;
 }
 
 .send-msg,

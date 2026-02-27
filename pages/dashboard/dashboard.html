@@ -62,19 +62,24 @@
             </div>
 
             <!-- Window for received/sent messages -->
-            <div id="chat-content">
+            <div id="chat-content"></div>
 
-                <!-- one message -->
-                <article class="message">
-                    <p class="message-username">Name 1</p>
-                    <p class="message-content"> Master Zeng [Zengzi] said, “A man of education and aspiration [shi] must be big and  strong [in spirit and mind], and he must be resolute. His burden is heavy, and his road is long. He takes [the fulfillment of] humaneness as his burden. Is it not heavy? And his road ends only with death. Is it not long?”</p>
-                </article>
-                <!-- one message -->
-                <article class="message">
-                    <p class="message-username">Name 2</p>
-                    <p class="message-content">The language I have learn’d these forty years,<br>My native English, now I must forego:<br>And now my tongue’s use is to me no more<br>Than an unstringed viol or a harp.<br>—Thomas Mobray, William Shakespeare’s character in Richard II</p>
-                </article>
+            <div id="input-bar">
+                <div class="textbox">
+                    <input id="textbox-input" placeholder="Type a message..." />
+                </div>
 
+                <div class="send-msg">
+                    <button type="button" id="btn-send">Send</button>
+                </div>
+
+                <div class="group">
+                    <input id="group-input" placeholder="Join Group by ID" />
+                </div>
+
+                <div class="add-group">
+                    <button type="button" id="btn-add-group">Add</button>
+                </div>
             </div>
 
             <!-- Message input/send box -->
