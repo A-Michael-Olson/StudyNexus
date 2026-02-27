@@ -14,10 +14,30 @@ async function userProfile()
 
     window.currentUser = user; // store globally
 
-    const profileDiv = document.getElementById("profileUserName");
-    const displayName = user.user_metadata?.full_name || user.email;
+    const { data: profile, error: profileError } = await supabase
+        .from("profiles")
+        .select("username")
+        .eq("id", user.id)
+        .single();
 
-    profileDiv.innerHTML = `<h2>${displayName}</h2>`
+    if (profileError) {
+        console.error(profileError);
+        return;
+    }
+
+    const profileEmailDiv = document.getElementById("profile-email");
+    const displayEmail = user.user_metadata?.full_name || user.email;
+
+    const profileUsernameDiv = document.getElementById("profile-user-name");
+    const displayUserName = profile?.username || "No username set";
+    
+    if (profileEmailDiv){
+        profileEmailDiv.textContent = displayEmail;
+    }
+
+    if(profileUsernameDiv){
+        profileUsernameDiv.textContent = displayUserName;
+    }    
 }
 
 async function userGroups()
@@ -36,7 +56,7 @@ async function userGroups()
     `)
     .eq("user_id", user.id);
     
-    const groupDiv = document.getElementById("userGroups");
+    const groupDiv = document.getElementById("user-groups");
     groupDiv.innerHTML="";
 
     if (memberError || !memberships || memberships.length === 0) {
@@ -60,6 +80,65 @@ async function userGroups()
     });
 }
 
-userProfile().then(()=> {
+async function joinGroup() {
+    const groupIdInput = document.getElementById("group-input");
+    const groupId = groupIdInput.value.trim();
+
+    if (!groupId) {
+        alert("Enter a group ID");
+        return;
+    }
+
+    const { error } = await supabase
+        .from("group_members")
+        .insert({
+            group_id: groupId,
+            user_id: window.currentUser.id
+        });
+
+    if (error) {
+        console.error("Join error:", error);
+        alert(error.message);
+        return;
+    }
+
+    alert("Joined group successfully");
+
+    groupIdInput.value = "";
+
+    await userGroups();
+}
+
+async function changeUsername() {
+    const newUsername = prompt("Enter new username:");
+    if (!newUsername) return;
+
+    const { error } = await supabase
+        .from('profiles')
+        .update({ username: newUsername })
+        .eq('id', window.currentUser.id);
+
+    if (error) {
+        alert("Error: " + error.message);
+        return;
+    }
+
+    alert("Username updated!");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Join group button
+    const joinBtn = document.getElementById("btn-add-group");
+    if (joinBtn) {
+        joinBtn.addEventListener("click", joinGroup);
+    }
+
+    // Change username button
+    const changeBtn = document.getElementById("btn-change-group");
+    if (changeBtn) changeBtn.addEventListener("click", changeUsername);
+
+    userProfile().then(()=> {
     userGroups();
+    });
 });
+;
