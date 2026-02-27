@@ -28,7 +28,7 @@
    box-shadow: var(--shadow-soft);
 }
 
-.group-input{
+.user-change{
    display: flex;
    align-items: center;
    gap: 0.75rem;

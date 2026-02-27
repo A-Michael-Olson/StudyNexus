@@ -14,10 +14,30 @@ async function userProfile()
 
     window.currentUser = user; // store globally
 
-    const profileDiv = document.getElementById("profileUserName");
-    const displayName = user.user_metadata?.full_name || user.email;
+    const { data: profile, error: profileError } = await supabase
+        .from("profiles")
+        .select("username")
+        .eq("id", user.id)
+        .single();
 
-    profileDiv.innerHTML = `<h2>${displayName}</h2>`
+    if (profileError) {
+        console.error(profileError);
+        return;
+    }
+
+    const profileEmailDiv = document.getElementById("profile-email");
+    const displayEmail = user.user_metadata?.full_name || user.email;
+
+    const profileUsernameDiv = document.getElementById("profile-user-name");
+    const displayUserName = profile?.username || "No username set";
+    
+    if (profileEmailDiv){
+        profileEmailDiv.textContent = displayEmail;
+    }
+
+    if(profileUsernameDiv){
+        profileUsernameDiv.textContent = displayUserName;
+    }    
 }
 
 async function userGroups()
