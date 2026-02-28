@@ -30,9 +30,11 @@
 }
 
 #group-content {
+    display: grid;
+    grid-template-rows: 1fr auto; /* chat + input */
+    height: 100%;
     padding: 2rem;
-    display: flex;
-    flex-direction: column;
+    box-sizing: border-box;
 }
 
 /* ======================================================
@@ -86,13 +88,12 @@
 
 
 #chat-content {
-    flex: 1;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
     padding-right: 0.5rem;
-    padding-bottom: 1rem; /* 👈 buffer space */
+    padding-bottom: 1rem;
     min-height: 0;
 }
 
@@ -167,8 +168,7 @@
     align-items: flex-end;
     gap: 0.75rem;
     border-top: 1px solid #e5e7eb;
-    padding: 1rem;
-    flex-shrink: 0; /*  prevents it from collapsing */
+    padding-top: 1rem;
 }
 
 .textbox,
