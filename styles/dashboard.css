@@ -22,6 +22,11 @@
 
 #left-sidebar {
     border-right: 1px solid var(--accent);
+    display: grid;
+    grid-template-rows: auto 1fr;
+    /* channels | tasks */
+    height: 100%;
+    overflow: hidden;
 }
 
 #users-sidebar {
