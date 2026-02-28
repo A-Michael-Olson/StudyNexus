@@ -17,7 +17,7 @@ export async function initializeChat(getGroupId) {
     });
 
     await loadMessages(getGroupId());
-    subscribeToMessages(getGroupId());
+    subscribeToMessages(getGroupId);
 }
 
 async function loadMessages(groupId) {
