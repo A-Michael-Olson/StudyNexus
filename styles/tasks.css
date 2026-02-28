@@ -50,7 +50,8 @@
     flex-direction: column;
     gap: 2rem;
     overflow-y: auto;
-    min-height: 0; /* CRITICAL for scrolling inside grid */
+    min-height: 0;
+    height: 100%; 
 }
 
 .task-section {
