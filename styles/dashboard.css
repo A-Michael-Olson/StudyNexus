@@ -10,7 +10,7 @@
 #dashboard {
     display: grid;
     grid-template-columns: 240px 1fr 240px;
-    min-height: 100vh; 
+    height: 100vh;
 }
 
 #left-sidebar,
@@ -74,11 +74,11 @@
 }
 
 #group-content {
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    /* group header | chat | input */
     height: 100%;
-    overflow: hidden;
+    padding: 1.5rem 2rem;
 }
 
 /* ======================================================

@@ -49,6 +49,8 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    max-height: 250px;
+    overflow-y: auto;
 }
 
 .task-section {
