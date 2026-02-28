@@ -88,11 +88,12 @@
 #chat-content {
     flex: 1;
     overflow-y: auto;
-    padding-right: 0.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    min-height: 0; /* prevents flex overflow bugs */
+    padding-right: 0.5rem;
+    padding-bottom: 1rem; /* 👈 buffer space */
+    min-height: 0;
 }
 
 /* message styling */
@@ -165,10 +166,9 @@
     display: flex;
     align-items: flex-end;
     gap: 0.75rem;
-    padding-top: 1rem;
     border-top: 1px solid #e5e7eb;
-    margin-top: 1rem;
-    padding: 0 1rem 0 1rem;
+    padding: 1rem;
+    flex-shrink: 0; /*  prevents it from collapsing */
 }
 
 .textbox,
