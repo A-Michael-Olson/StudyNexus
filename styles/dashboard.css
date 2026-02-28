@@ -10,7 +10,8 @@
 #dashboard {
     display: grid;
     grid-template-columns: 240px 1fr 240px;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
 }
 
 #left-sidebar,
@@ -71,17 +72,18 @@
     margin-top: 0.25rem;
 }
 
+#group-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
 
 /* ======================================================
    3 CHAT / MESSAGE AREA
    ====================================================== */
 
-#group-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    min-height: 0; /* important for proper scrolling */
-}
 
 #chat-content {
     flex: 1;
@@ -95,12 +97,14 @@
 
 /* message styling */
 .message {
+    position: relative;
     background-color: var(--bg-card);
     padding: 0.8rem 1rem;
     border-radius: 10px;
     box-shadow: var(--shadow-soft);
-    max-width: 75%;
-    word-wrap: break-word;
+    max-width: 65%;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .message-username {
@@ -126,6 +130,11 @@
 
 .message {
     position: relative; /* needed for absolute X */
+}
+
+.message-content {
+    word-break: break-word;
+    white-space: pre-wrap;
 }
 
 .message-delete {
@@ -178,6 +187,14 @@
 .add-group {
     display: flex;
     align-items: flex-end;
+}
+
+#textbox-input {
+    resize: none;
+    overflow-y: auto;
+    min-height: 38px;
+    max-height: 150px;
+    line-height: 1.4;
 }
 
 

@@ -10,8 +10,16 @@ export async function initializeChat(getGroupId) {
         sendMessage(getGroupId());
     });
 
-    input.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
+    // Auto-grow textarea
+    input.addEventListener("input", () => {
+        input.style.height = "auto";
+        input.style.height = input.scrollHeight + "px";
+    });
+
+    // Enter to send, Shift+Enter for newline
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
             sendMessage(getGroupId());
         }
     });
@@ -26,12 +34,12 @@ async function loadMessages(groupId) {
     const { data, error } = await supabase
         .from("messages")
         .select(`
-                id,
-                content,
-                created_at,
-                user_id,
-                profiles ( username )
-            `)
+            id,
+            content,
+            created_at,
+            user_id,
+            profiles ( username )
+        `)
         .eq("group_id", groupId)
         .order("created_at", { ascending: true });
 
@@ -44,7 +52,6 @@ async function loadMessages(groupId) {
     container.innerHTML = "";
 
     data.forEach(addMessageToUI);
-
     scrollToBottom();
 }
 
@@ -67,6 +74,7 @@ async function sendMessage(groupId) {
     }
 
     input.value = "";
+    input.style.height = "auto"; // reset height after send
 }
 
 function subscribeToMessages(getGroupId) {
@@ -82,37 +90,30 @@ function subscribeToMessages(getGroupId) {
         .on(
             "postgres_changes",
             {
-                event: "INSERT",
+                event: "*",
                 schema: "public",
                 table: "messages",
                 filter: `group_id=eq.${groupId}`
             },
             async (payload) => {
-                const message = payload.new;
 
-                const { data } = await supabase
-                    .from("profiles")
-                    .select("username")
-                    .eq("id", message.user_id)
-                    .single();
+                if (payload.eventType === "INSERT") {
+                    const message = payload.new;
 
-                message.profiles = data;
-                addMessageToUI(message);
-                scrollToBottom();
-            }
-        )
-        .on(
-            "postgres_changes",
-            {
-                event: "DELETE",
-                schema: "public",
-                table: "messages",
-                filter: `group_id=eq.${groupId}`
-            },
-            (payload) => {
-                const id = payload.old.id;
-                const el = document.querySelector(`[data-id="${id}"]`);
-                if (el) el.remove();
+                    const { data } = await supabase
+                        .from("profiles")
+                        .select("username")
+                        .eq("id", message.user_id)
+                        .single();
+
+                    message.profiles = data;
+                    addMessageToUI(message);
+                    scrollToBottom();
+                }
+
+                if (payload.eventType === "DELETE") {
+                    removeMessageFromUI(payload.old.id);
+                }
             }
         )
         .subscribe();
@@ -125,7 +126,9 @@ function addMessageToUI(message) {
     article.classList.add("message");
     article.dataset.id = message.id;
 
-    const isSelf = message.user_id === window.currentUser.id;
+    const isSelf =
+        window.currentUser &&
+        message.user_id === window.currentUser.id;
 
     if (isSelf) {
         article.classList.add("self");
@@ -149,18 +152,21 @@ function addMessageToUI(message) {
     }
 }
 
-async function deleteMessage(messageId, element) {
+async function deleteMessage(id) {
     const { error } = await supabase
         .from("messages")
         .delete()
-        .eq("id", messageId);
+        .eq("id", id);
 
     if (error) {
         console.error("Delete error:", error);
-        return;
     }
+    // Do NOT remove from UI here — realtime handles it
+}
 
-    element.remove();
+function removeMessageFromUI(id) {
+    const msg = document.querySelector(`[data-id="${id}"]`);
+    if (msg) msg.remove();
 }
 
 function scrollToBottom() {
