@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    min-height: 0;
 }
 
 /* ===== Section Title ===== */
@@ -25,6 +26,8 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    overflow-y: auto;
+    min-height: 0;
 }
 
 .task-column {
@@ -99,4 +102,10 @@
     justify-content: flex-end;
     gap: 0.75rem;
     margin-top: 1rem;
+}
+
+/* ===== Task Toggle ===== */
+.task-toggle {
+    cursor: pointer;
+    user-select: none;
 }

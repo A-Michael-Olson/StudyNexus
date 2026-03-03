@@ -67,6 +67,15 @@ export function initializeTaskUI(getCurrentGroupId) {
             closeTaskModal();
         }
     });
+
+    // Collapsible task groups
+    document.querySelectorAll(".task-toggle").forEach(toggle => {
+        toggle.addEventListener("click", () => {
+            const list = toggle.nextElementSibling;
+            list.style.display =
+                list.style.display === "none" ? "flex" : "none";
+        });
+    });
 }
 
 function openTaskModal(task = null) {

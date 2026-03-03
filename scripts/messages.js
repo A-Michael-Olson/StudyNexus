@@ -134,13 +134,19 @@ function addMessageToUI(message) {
         article.classList.add("self");
     }
 
+    const time = new Date(message.created_at).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+
     article.innerHTML = `
-        ${isSelf ? `<span class="message-delete">&times;</span>` : ""}
-        <p class="message-username">
-            ${message.profiles?.username ?? "Unknown"}
-        </p>
-        <p class="message-content">${message.content}</p>
-    `;
+    ${isSelf ? `<span class="message-delete">&times;</span>` : ""}
+    <p class="message-username">
+        ${message.profiles?.username ?? "Unknown"}
+    </p>
+    <p class="message-content">${message.content}</p>
+    <p class="message-time">${time}</p>
+`;
 
     container.appendChild(article);
 
