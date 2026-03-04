@@ -96,8 +96,9 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    padding-right: 0.5rem;
-    padding-bottom: 1rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    /* padding-right: 0.5rem;
+    padding-bottom: 1rem; */
     min-height: 0;
 }
 
@@ -106,7 +107,8 @@
     position: relative;
     background-color: var(--bg-card);
     padding: 0.8rem 1rem;
-    border-radius: 10px;
+    border-radius: 0 10px 10px 10px;
+    border: 2px solid var(--accent);
     box-shadow: var(--shadow-soft);
     max-width: 65%;
     word-break: break-word;
@@ -133,6 +135,7 @@
     align-self: flex-end;
     background-color: var(--accent);
     color: white;
+    border-radius: 10px 0 10px 10px;
 }
 
 .message:not(.self) {
@@ -189,7 +192,7 @@
     display: flex;
     align-items: flex-end;
     gap: 0.75rem;
-    padding-top: 1rem;
+    padding-left: 1rem;
 }
 
 .textbox,
@@ -197,6 +200,8 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    box-shadow: var(--shadow-soft);
+    border-radius: 10px;
 }
 
 #textbox-input,
