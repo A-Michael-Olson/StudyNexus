@@ -29,16 +29,15 @@ async function loadDashboard() {
         .eq("user_id", user.id);
 
     if (memberError || !memberships || memberships.length === 0) {
-        document.getElementById("group-name").textContent = "No groups";
-        document.getElementById("group-id-display").textContent = "";
+        document.getElementById("nav-group-name").textContent = "No Active Group";
         return;
     }
 
     const activeGroup = memberships[0].groups;
 
-    document.getElementById("group-name").textContent = activeGroup.name;
-    document.getElementById("group-id-display").textContent =
-        `Group ID: ${activeGroup.id}`;
+    const navName = document.getElementById("nav-group-name");
+    navName.textContent = activeGroup.name;
+    navName.dataset.groupId = activeGroup.id;
 
     // Store globally so other modules can access
     window.currentGroupId = activeGroup.id;
@@ -115,16 +114,30 @@ async function joinGroup() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Initialize task UI once
+
+    const navName = document.getElementById("nav-group-name");
+
+    navName.addEventListener("click", async () => {
+        const groupId = navName.dataset.groupId;
+        if (!groupId) return;
+
+        await navigator.clipboard.writeText(groupId);
+
+        const originalText = navName.textContent;
+        navName.textContent = "Copied Group ID!";
+
+        setTimeout(() => {
+            navName.textContent = originalText;
+        }, 1500);
+    });
+
     initializeTaskUI(() => window.currentGroupId);
 
-    // Join group button
     const joinBtn = document.getElementById("btn-add-group");
     if (joinBtn) {
         joinBtn.addEventListener("click", joinGroup);
     }
 
-    // Load everything
     loadDashboard();
 });
 

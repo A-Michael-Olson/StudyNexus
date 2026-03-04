@@ -12,15 +12,17 @@
 <body>
     <!-- navigation header -->
     <nav id="header">
-        <a href="../../index.html">
+        <a href="../../index.html" class="nav-left">
             <img class="nav-logo" src="../../images/StudyNexus.png" alt="Study Nexus">
         </a>
 
-        <a class="nav-link" href="../../index.html">HOME</a>
-        <a class="nav-link" href="../login/login.html">LOGIN</a>
-        <a class="nav-link" href="../login/signup.html">SIGNUP</a>
-        <a class="nav-link" href="../login/profilepage.html">PROFILE</a>
-        <button type="button" id="theme-toggle">Toggle light/dark</button>
+        <div id="nav-group-info">
+            <span id="nav-group-name">Group Name</span>
+        </div>
+
+        <div class="nav-right">
+            <button type="button" id="theme-toggle">Toggle light/dark</button>
+        </div>
     </nav>
     <div id="dashboard">
         <div id="left-sidebar">
@@ -41,13 +43,15 @@
 
                 <div class="task-columns">
                     <div class="task-column">
-                        <h2 class="task-toggle">Active</h2>
-                        <div class="task-list" id="active-tasks"></div>
+                        <h2 class="task-toggle" data-status="active">
+                            Active <span class="task-count"></span>
+                        </h2>
                     </div>
 
                     <div class="task-column">
-                        <h2 class="task-toggle">Completed</h2>
-                        <div class="task-list" id="completed-tasks"></div>
+                        <h2 class="task-toggle" data-status="completed">
+                            Completed <span class="task-count"></span>
+                        </h2>
                     </div>
                 </div>
             </article>
@@ -56,12 +60,6 @@
         </div>
 
         <div id="group-content">
-
-            <div class="group-header">
-                <h1 id="group-name">Group Name</h1>
-                <p id="group-id-display"></p>
-            </div>
-
             <!-- Window for received/sent messages -->
             <div id="chat-content">
                 <!-- <article class="message">
