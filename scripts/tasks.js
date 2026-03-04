@@ -38,6 +38,7 @@ export async function loadTasks(groupId) {
             activeContainer.appendChild(taskEl);
         }
     });
+    updateTaskCounts();
 }
 
 export function initializeTaskUI(getCurrentGroupId) {
@@ -72,10 +73,30 @@ export function initializeTaskUI(getCurrentGroupId) {
     document.querySelectorAll(".task-toggle").forEach(toggle => {
         toggle.addEventListener("click", () => {
             const list = toggle.nextElementSibling;
-            list.style.display =
-                list.style.display === "none" ? "flex" : "none";
+            const countSpan = toggle.querySelector(".task-count");
+
+            const isCollapsed = list.style.display === "none";
+
+            if (isCollapsed) {
+                list.style.display = "flex";
+                countSpan.textContent = "";
+            } else {
+                list.style.display = "none";
+                updateTaskCounts(); // recalc before showing
+            }
         });
     });
+}
+
+function updateTaskCounts() {
+    const activeTasks = document.querySelectorAll("#active-tasks .task").length;
+    const completedTasks = document.querySelectorAll("#completed-tasks .task").length;
+
+    document.querySelector('[data-status="active"] .task-count')
+        .textContent = activeTasks > 0 ? `(${activeTasks})` : "";
+
+    document.querySelector('[data-status="completed"] .task-count')
+        .textContent = completedTasks > 0 ? `(${completedTasks})` : "";
 }
 
 function openTaskModal(task = null) {
