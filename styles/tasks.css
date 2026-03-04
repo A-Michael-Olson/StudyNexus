@@ -28,10 +28,12 @@
     gap: 2rem;
     overflow-y: auto;
     min-height: 0;
+    justify-content: flex-start;
 }
 
 .task-column {
-    flex: 1;
+    /*flex: 1;*/
+    flex: 0 0 auto;
 }
 
     .task-column h2 {
