@@ -35,6 +35,8 @@ async function loadDashboard() {
 
     const activeGroup = memberships[0].groups;
 
+    const navName = document.getElementById("nav-group-name");
+    navName.textContent = activeGroup.name;
     navName.dataset.groupId = activeGroup.id;
 
     // Store globally so other modules can access
