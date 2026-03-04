@@ -17,6 +17,11 @@ export async function loadTasks(groupId) {
     const activeContainer = document.getElementById("active-tasks");
     const completedContainer = document.getElementById("completed-tasks");
 
+    if (!activeContainer || !completedContainer) {
+        console.warn("Task containers missing.");
+        return;
+    }
+
     activeContainer.innerHTML = "";
     completedContainer.innerHTML = "";
 
