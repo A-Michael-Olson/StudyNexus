@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../../styles/theme.css" />
     <link rel="stylesheet" href="../../styles/dashboard.css" />
     <link rel="stylesheet" href="../../styles/tasks.css" />
-    <link rel="icon" type="image/png" href="images/StudyNexus.png">
+    <link rel="icon" type="image/png" href="../../images/StudyNexus.png">
 </head>
 <body>
     <!-- navigation header -->
@@ -37,24 +37,21 @@
             </article>
 
             <!-- Task Sidebar -->
-            <article class="task-items">
-                <h1 id="tasks-title">Tasks</h1>
-                <button id="btn-add-task" class="btn">Add Task</button>
-
-                <div class="task-columns">
-                    <div class="task-column">
-                        <h2 class="task-toggle" data-status="active">
-                            Active <span class="task-count"></span>
-                        </h2>
-                    </div>
-
-                    <div class="task-column">
-                        <h2 class="task-toggle" data-status="completed">
-                            Completed <span class="task-count"></span>
-                        </h2>
-                    </div>
+            <div class="task-columns">
+                <div class="task-column">
+                    <h2 class="task-toggle" data-status="active">
+                        Active <span class="task-count"></span>
+                    </h2>
+                    <div class="task-list" id="active-tasks"></div>
                 </div>
-            </article>
+
+                <div class="task-column">
+                    <h2 class="task-toggle" data-status="completed">
+                        Completed <span class="task-count"></span>
+                    </h2>
+                    <div class="task-list" id="completed-tasks"></div>
+                </div>
+            </div>
 
 
         </div>
@@ -92,7 +89,7 @@
             <h2>Members</h2>
             <div id="user-list">
                 <article class="user-item">
-                    <img src="/images/studyNexus.png">
+                    <img src="../../images/StudyNexus.png">
                     <h3>Test_User_Name</h3>
                 </article>
             </div>
