@@ -49,13 +49,44 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    height: 3em;
+    height: 3.5rem;
     background-color: var(--accent);
     box-shadow: var(--shadow-soft);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    padding: 0 1.5rem;
+}
+
+.nav-left {
     display: flex;
     align-items: center;
-    gap: 100px;
-    padding: 0 1.5rem;
+}
+
+.nav-logo {
+    height: 32px;
+}
+
+#nav-group-info {
+    text-align: center;
+}
+
+#nav-group-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    transition: var(--transition);
+}
+
+    #nav-group-name:hover {
+        opacity: 0.85;
+    }
+
+.nav-right {
+    display: flex;
+    justify-content: flex-end;
 }
 
 
@@ -80,7 +111,7 @@
 
 #group-content {
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: 1fr auto;
     /* group header | chat | input */
     height: 100%;
     padding: 1.5rem 2rem;
