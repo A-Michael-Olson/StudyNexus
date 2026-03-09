@@ -85,7 +85,7 @@ async function loadGroupMembers(groupId) {
         userEl.classList.add("user-item");
 
         if (isCurrentUser) {
-            userEl.href = "../pages/login/profilepage.html";
+            userEl.href = "../login/profilepage.html";
             userEl.classList.add("self");
         }
 
