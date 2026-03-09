@@ -31,6 +31,8 @@
 
 #users-sidebar {
     border-left: 1px solid var(--accent);
+    display: flex;
+    flex-direction: column;
 }
 
 #group-content {
@@ -279,9 +281,22 @@
 #user-list {
     display: flex;
     flex-direction: column;
+    flex: 1;
     gap: 0.5rem;
 }
 
+#leave-group-container {
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.btn.danger {
+    background-color: #ef4444;
+}
+
+.btn.danger:hover {
+    background-color: #dc2626;
+}
 /* moved from main css */
 .user-item {
     display: flex;

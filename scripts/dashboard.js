@@ -127,6 +127,26 @@ async function joinGroup() {
     await loadDashboard();
 }
 
+async function leaveGroup() {
+    const confirmed = confirm("Are you sure you want to leave this group?");
+    if (!confirmed) return;
+
+    const { error } = await supabase
+        .from("group_members")
+        .delete()
+        .eq("group_id", window.currentGroupId)
+        .eq("user_id", window.currentUser.id);
+
+    if (error) {
+        console.error("Leave group error:", error);
+        alert("Could not leave group");
+        return;
+    }
+
+    alert("Left group successfully");
+    window.location.reload();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const navName = document.getElementById("nav-group-name");
@@ -150,6 +170,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const joinBtn = document.getElementById("btn-add-group");
     if (joinBtn) {
         joinBtn.addEventListener("click", joinGroup);
+    }
+
+    const leaveBtn = document.getElementById("btn-leave-group");
+
+    if (leaveBtn) {
+        leaveBtn.addEventListener("click", leaveGroup);
     }
 
     loadDashboard();
