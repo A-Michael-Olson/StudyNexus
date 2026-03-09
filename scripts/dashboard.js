@@ -71,9 +71,23 @@ async function loadGroupMembers(groupId) {
     const userList = document.getElementById("user-list");
     userList.innerHTML = "";
 
+    members.sort((a, b) => {
+        if (a.user_id === window.currentUser.id) return -1;
+        if (b.user_id === window.currentUser.id) return 1;
+        return 0;
+    });
+
     members.forEach(member => {
-        const userEl = document.createElement("article");
+
+        const isCurrentUser = member.user_id === window.currentUser.id;
+
+        const userEl = document.createElement(isCurrentUser ? "a" : "article");
         userEl.classList.add("user-item");
+
+        if (isCurrentUser) {
+            userEl.href = "../profile/profile.html";
+            userEl.classList.add("self");
+        }
 
         userEl.innerHTML = `
             <img src="/images/studyNexus.png">

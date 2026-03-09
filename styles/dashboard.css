@@ -302,6 +302,12 @@
     border-radius: 50%;
 }
 
+    .user-item.self h3::after {
+        content: " (You)";
+        opacity: 0.6;
+        font-weight: normal;
+    }
+
 
 /* ======================================================
    7 CHANNEL SIDEBAR (Left Sidebar Extra Section)
