@@ -153,6 +153,9 @@
     color: var(--text-primary);
     margin-bottom: 0.25rem;
 }
+.message.self .message-username {
+    color: var(--text-light);
+}
 
 .message-content {
     font-size: 0.95rem;
@@ -167,7 +170,7 @@
 .message.self {
     align-self: flex-end;
     background-color: var(--accent);
-    color: white;
+    color: var(--text-light);
     border-radius: 10px 0 10px 10px;
 }
 
@@ -317,11 +320,11 @@
     border-radius: 50%;
 }
 
-    .user-item.self h3::after {
-        content: " (You)";
-        opacity: 0.6;
-        font-weight: normal;
-    }
+.user-item.self h3::after {
+    content: " (You)";
+    opacity: 0.6;
+    font-weight: normal;
+}
 
 
 /* ======================================================
