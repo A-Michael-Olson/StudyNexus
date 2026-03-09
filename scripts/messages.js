@@ -119,6 +119,33 @@ function subscribeToMessages(getGroupId) {
         .subscribe();
 }
 
+
+function formatMessageTime(timestamp) {
+    const date = new Date(timestamp);
+    const now = new Date();
+
+    const isToday =
+        date.getDate() === now.getDate() &&
+        date.getMonth() === now.getMonth() &&
+        date.getFullYear() === now.getFullYear();
+
+    const time = date.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+
+    if (isToday) {
+        return `Today ${time}`;
+    }
+
+    const day = date.toLocaleDateString([], {
+        month: "short",
+        day: "numeric"
+    });
+
+    return `${day} ${time}`;
+}
+
 function addMessageToUI(message) {
     const container = document.getElementById("chat-content");
 
@@ -134,19 +161,16 @@ function addMessageToUI(message) {
         article.classList.add("self");
     }
 
-    const time = new Date(message.created_at).toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit"
-    });
+    const formattedTime = formatMessageTime(message.created_at);
 
     article.innerHTML = `
     ${isSelf ? `<span class="message-delete">&times;</span>` : ""}
-    <p class="message-username">
-        ${message.profiles?.username ?? "Unknown"}
-    </p>
-    <p class="message-content">${message.content}</p>
-    <p class="message-time">${time}</p>
-`;
+        <p class="message-username">
+            ${message.profiles?.username ?? "Unknown"}
+        </p>
+        <p class="message-content">${message.content}</p>
+        <p class="message-time">${formattedTime}</p>
+    `;
 
     container.appendChild(article);
 
