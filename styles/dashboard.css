@@ -22,12 +22,14 @@
 
 #left-sidebar {
     border-right: 1px solid var(--accent);
-    display: grid;
-    grid-template-rows: auto 1fr;
-    /* channels | tasks */
+    display: flex;
+    flex-direction: column;
     height: 100%;
     overflow: hidden;
+    gap: 1rem;
 }
+
+
 
 #users-sidebar {
     border-left: 1px solid var(--accent);
@@ -329,26 +331,57 @@
 
 
 /* ======================================================
-   7 CHANNEL SIDEBAR (Left Sidebar Extra Section)
+   7 CHANNEL SIDEBAR
    ====================================================== */
 
 .channel-sidebar {
-    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--bg-secondary);
+    margin-bottom: 1.2rem;
 }
 
+/* Header row */
 #channels-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-size: 1.2rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.4rem;
 }
 
-.channel-list a {
-    display: block;
-    padding: 0.5rem 0.75rem;
-    border-radius: 8px;
+/* Add channel button */
+#btn-add-channel {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.8rem;
+}
+
+/* Channel list */
+#channel-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.channel-item {
+    text-align: left;
+    padding: 0.45rem 0.6rem;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
     cursor: pointer;
+    font-size: 0.9rem;
     transition: var(--transition);
+    width: 100%;
 }
 
-.channel-list a:hover {
-    background-color: var(--bg-secondary);
-}
+    .channel-item::before {
+        content: "# ";
+        opacity: 0.6;
+    }
+

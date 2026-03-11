@@ -19,22 +19,24 @@
 /* ===== Add Task Button Spacing ===== */
 #btn-add-task {
     align-self: flex-start;
+    margin-top: 0.5rem;
 }
+
 
 /* ===== Task Columns Layout ===== */
 .task-columns {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.2rem;
     overflow-y: auto;
     min-height: 0;
-    justify-content: flex-start;
+    flex: 1;
 }
 
 .task-column {
-    /*flex: 1;*/
     flex: 0 0 auto;
 }
+
 
     .task-column h2 {
         margin-bottom: 0.8rem;
@@ -110,4 +112,8 @@
 .task-toggle {
     cursor: pointer;
     user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 0;
 }
