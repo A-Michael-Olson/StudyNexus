@@ -10,7 +10,7 @@ export function updateHeaderChannel(channelName) {
 
     const groupName = navName.dataset.groupName;
 
-    navName.textContent = `${groupName} — #${channelName}`;
+    navName.textContent = `${groupName} - #${channelName}`;
 }
 
 async function loadDashboard() {
