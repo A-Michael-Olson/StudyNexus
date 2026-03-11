@@ -395,3 +395,10 @@
     background-color: var(--bg-secondary);
     font-weight: 600;
 }
+
+.sidebar-btn {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    height: 28px;
+    min-width: 110px;
+}
