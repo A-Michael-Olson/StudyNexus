@@ -2,6 +2,17 @@ import { supabase } from "./supabase.js";
 import { loadTasks, initializeTaskUI } from "./tasks.js";
 import { initializeChat } from "./messages.js";
 
+
+export function updateHeaderChannel(channelName) {
+    const navName = document.getElementById("nav-group-name");
+
+    if (!navName) return;
+
+    const groupName = navName.dataset.groupName;
+
+    navName.textContent = `${groupName} — #${channelName}`;
+}
+
 async function loadDashboard() {
     // 1. Get logged-in user
     const {
@@ -38,8 +49,10 @@ async function loadDashboard() {
     window.currentGroupId = activeGroup.id;
 
     const navName = document.getElementById("nav-group-name");
-    navName.textContent = activeGroup.name;
     navName.dataset.groupId = activeGroup.id;
+    navName.dataset.groupName = activeGroup.name;
+
+    navName.textContent = activeGroup.name;
 
     // Store globally so other modules can access
     window.currentGroupId = activeGroup.id;

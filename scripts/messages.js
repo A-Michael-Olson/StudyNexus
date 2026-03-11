@@ -1,4 +1,5 @@
 import { supabase } from "./supabase.js";
+import { updateHeaderChannel } from "./dashboard.js";
 
 let currentSubscription = null;
 let currentChannelId = null;
@@ -28,14 +29,32 @@ async function loadChannels(getGroupId) {
         btn.classList.add("channel-item");
         btn.textContent = "# " + channel.name;
 
-        btn.onclick = () => openChannel(channel.id);
+        btn.onclick = () => {
+
+            // highlight active channel
+            document.querySelectorAll(".channel-item").forEach(el => {
+                el.classList.remove("active");
+            });
+
+            btn.classList.add("active");
+
+            openChannel(channel.id);
+
+            updateHeaderChannel(channel.name);
+        };
 
         container.appendChild(btn);
     });
 
     if (data.length > 0) {
+
+        const firstBtn = container.querySelector(".channel-item");
+        if (firstBtn) firstBtn.classList.add("active");
+
         openChannel(data[0].id);
+        updateHeaderChannel(data[0].name);
     }
+
 }
 
 export async function initializeChat(getGroupId) {
