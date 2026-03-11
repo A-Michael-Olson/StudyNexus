@@ -1,35 +1,75 @@
 import { supabase } from "./supabase.js";
 
 let currentSubscription = null;
+let currentChannelId = null;
+
+async function loadChannels(getGroupId) {
+
+    const groupId = getGroupId();
+    if (!groupId) return;
+
+    const { data, error } = await supabase
+        .from("channels")
+        .select("*")
+        .eq("group_id", groupId)
+        .order("created_at");
+
+    if (error) {
+        console.error("Channel load error:", error);
+        return;
+    }
+
+    const container = document.getElementById("channel-list");
+    container.innerHTML = "";
+
+    data.forEach(channel => {
+
+        const btn = document.createElement("button");
+        btn.classList.add("channel-item");
+        btn.textContent = "# " + channel.name;
+
+        btn.onclick = () => openChannel(channel.id);
+
+        container.appendChild(btn);
+    });
+
+    if (data.length > 0) {
+        openChannel(data[0].id);
+    }
+}
 
 export async function initializeChat(getGroupId) {
+
     const sendBtn = document.getElementById("btn-send");
     const input = document.getElementById("textbox-input");
 
     sendBtn.addEventListener("click", () => {
-        sendMessage(getGroupId());
+        sendMessage();
     });
 
-    // Auto-grow textarea
     input.addEventListener("input", () => {
         input.style.height = "auto";
         input.style.height = input.scrollHeight + "px";
     });
 
-    // Enter to send, Shift+Enter for newline
     input.addEventListener("keydown", (e) => {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
-            sendMessage(getGroupId());
+            sendMessage();
         }
     });
 
-    await loadMessages(getGroupId());
-    subscribeToMessages(getGroupId);
+    await loadChannels(getGroupId());
+
+    const addBtn = document.getElementById("btn-add-channel");
+    if (addBtn) {
+        addBtn.addEventListener("click", () => createChannel(getGroupId()));
+    }
 }
 
-async function loadMessages(groupId) {
-    if (!groupId) return;
+async function loadMessages(channelId) {
+
+    if (!channelId) return;
 
     const { data, error } = await supabase
         .from("messages")
@@ -40,7 +80,7 @@ async function loadMessages(groupId) {
             user_id,
             profiles ( username )
         `)
-        .eq("group_id", groupId)
+        .eq("channel_id", channelId)
         .order("created_at", { ascending: true });
 
     if (error) {
@@ -55,18 +95,22 @@ async function loadMessages(groupId) {
     scrollToBottom();
 }
 
-async function sendMessage(groupId) {
+async function sendMessage() {
+
     const input = document.getElementById("textbox-input");
     const content = input.value.trim();
-    if (!content || !groupId) return;
+
+    if (!content || !currentChannelId) return;
 
     const { data: { user } } = await supabase.auth.getUser();
 
-    const { error } = await supabase.from("messages").insert({
-        content,
-        group_id: groupId,
-        user_id: user.id
-    });
+    const { error } = await supabase
+        .from("messages")
+        .insert({
+            content,
+            channel_id: currentChannelId,
+            user_id: user.id
+        });
 
     if (error) {
         console.error("Send error:", error);
@@ -74,30 +118,31 @@ async function sendMessage(groupId) {
     }
 
     input.value = "";
-    input.style.height = "auto"; // reset height after send
+    input.style.height = "auto";
 }
 
-function subscribeToMessages(getGroupId) {
+function subscribeToMessages(channelId) {
+
     if (currentSubscription) {
         supabase.removeChannel(currentSubscription);
     }
 
-    const groupId = getGroupId();
-    if (!groupId) return;
+    if (!channelId) return;
 
     currentSubscription = supabase
-        .channel("group-chat")
+        .channel("channel-chat")
         .on(
             "postgres_changes",
             {
                 event: "*",
                 schema: "public",
                 table: "messages",
-                filter: `group_id=eq.${groupId}`
+                filter: `channel_id=eq.${channelId}`
             },
             async (payload) => {
 
                 if (payload.eventType === "INSERT") {
+
                     const message = payload.new;
 
                     const { data } = await supabase
@@ -107,6 +152,7 @@ function subscribeToMessages(getGroupId) {
                         .single();
 
                     message.profiles = data;
+
                     addMessageToUI(message);
                     scrollToBottom();
                 }
@@ -117,6 +163,31 @@ function subscribeToMessages(getGroupId) {
             }
         )
         .subscribe();
+}
+
+
+async function createChannel(getGroupId) {
+
+    const name = prompt("Enter channel name");
+    if (!name) return;
+
+    const { data: { user } } = await supabase.auth.getUser();
+
+    const { error } = await supabase
+        .from("channels")
+        .insert({
+            name,
+            group_id: getGroupId(),
+            created_by: user.id
+        });
+
+    if (error) {
+        console.error("Create channel error:", error);
+        alert(error.message);
+        return;
+    }
+
+    await loadChannels(getGroupId);
 }
 
 
@@ -192,6 +263,14 @@ async function deleteMessage(id) {
         console.error("Delete error:", error);
     }
     // Do NOT remove from UI here — realtime handles it
+}
+
+async function openChannel(channelId) {
+
+    currentChannelId = channelId;
+
+    await loadMessages(channelId);
+    subscribeToMessages(channelId);
 }
 
 function removeMessageFromUI(id) {
