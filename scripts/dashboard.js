@@ -33,7 +33,9 @@ async function loadDashboard() {
         return;
     }
 
-    const activeGroup = memberships[0].groups;
+    const savedGroup = localStorage.getItem("selectedGroup");
+    const activeGroup = memberships.find(m => m.group_id === savedGroup)?.groups || memberships[0].groups;
+    window.currentGroupId = activeGroup.id;
 
     const navName = document.getElementById("nav-group-name");
     navName.textContent = activeGroup.name;
