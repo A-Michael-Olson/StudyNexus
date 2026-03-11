@@ -59,11 +59,11 @@ export async function initializeChat(getGroupId) {
         }
     });
 
-    await loadChannels(getGroupId());
+    await loadChannels(getGroupId);
 
     const addBtn = document.getElementById("btn-add-channel");
     if (addBtn) {
-        addBtn.addEventListener("click", () => createChannel(getGroupId()));
+        addBtn.addEventListener("click", () => createChannel(getGroupId));
     }
 }
 
