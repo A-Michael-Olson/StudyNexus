@@ -35,3 +35,12 @@
    margin-top: 1.5rem;
    justify-content: center;
 }
+
+/* toggle theme button */
+.top-right button {
+   position: absolute;
+   top: 0;
+   right:0;
+   
+   margin:1rem;
+}

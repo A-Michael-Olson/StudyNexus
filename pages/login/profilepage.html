@@ -6,7 +6,6 @@
     <title>Profile Page</title>
     <link rel="stylesheet" href="../../styles/theme.css">
     <link rel="stylesheet" href="../../styles/profilepage.css">
-    <script type="module" src="../../scripts/profilepage.js"></script>
 </head>
 <body>
     <header>
@@ -15,6 +14,9 @@
                 <img id="logo" src="../../images/StudyNexusLogo.png" alt="Study Nexus Logo">
                 <h2 id="profile-user-name"></h2>
                 <h2 id="profile-email"></h2>
+                <div class="top-right">
+                    <button type="button" id="theme-toggle">Toggle light/dark</button>
+                </div>
             </div>
         </nav>
     </header>
@@ -28,5 +30,7 @@
             <button type="button" id="btn-change-group" class="btn">Change Username</button>
         </div>
     </div>
+    <script type="module" src="../../scripts/profilepage.js"></script>
+    <script type="module" src="../../scripts/toggle-dark.js"></script> <!-- Dark theme -->
 </body>
 </html>

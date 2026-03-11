@@ -142,3 +142,15 @@ textarea:focus {
     width: 400px;
     max-width: 90%;
 }
+
+button {
+    background-color: var(--accent);
+    color: var(--text-light);
+    border-color: var(--accent);
+    padding: 2px;
+    padding:0.5rem;
+    border-radius: 5px;
+}
+button:hover {
+    background-color: var(--accent-hover);
+}
