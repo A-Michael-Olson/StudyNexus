@@ -68,6 +68,13 @@ async function userGroups()
         const group = membership.groups;
         const article = document.createElement("article");
         article.className = "groups";
+        article.dataset.groupId = group.id;
+
+        article.addEventListener("click", () => {
+            localStorage.setItem("selectedGroup", group.id)
+            window.location.href = `../dashboard/dashboard.html`
+        })
+
         article.innerHTML = 
         `
         <div class="group-content">
