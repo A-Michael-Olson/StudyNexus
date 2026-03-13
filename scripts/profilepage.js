@@ -16,7 +16,7 @@ async function userProfile()
 
     const { data: profile, error: profileError } = await supabase
         .from("profiles")
-        .select("username")
+        .select("username", "profile_picture_url")
         .eq("id", user.id)
         .single();
 
@@ -38,6 +38,14 @@ async function userProfile()
     if(profileUsernameDiv){
         profileUsernameDiv.textContent = displayUserName;
     }    
+
+    const profileAvatar = document.getElementById("profile-avatar");
+
+    if (profileAvatar) {
+        profileAvatar.src =
+            profile?.profile_picture_url ||
+            "../../images/default-avatar.png";
+    }
 }
 
 async function userGroups()
@@ -132,8 +140,62 @@ async function changeUsername() {
 
     alert("Username updated!");
 }
+async function uploadAvatar() {
+    const fileInput = document.getElementById("avatar-input");
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert("Select an image first!");
+        return;
+    }
+
+    const filePath = `users/${window.currentUser.id}/avatar.jpg`;
+
+    const { error: uploadError } = await supabase.storage
+        .from("profile_pictures")
+        .upload(filePath, file, {
+            cacheControl: "3600",
+            upsert: true   
+        });
+
+    if (uploadError) {
+        console.error(uploadError);
+        alert("Upload failed!");
+        return;
+    }
+
+    // Get public URL of uploaded image
+    const { data } = supabase.storage
+        .from("profile_pictures")
+        .getPublicUrl(filePath);
+
+    const publicUrl = data.publicUrl;
+
+    const { error: profileError } = await supabase
+        .from("profiles")
+        .update({ profile_picture_url: publicUrl })
+        .eq("id", window.currentUser.id);
+
+    if (profileError) {
+        console.error(profileError);
+        alert("Could not update profile!");
+        return;
+    }
+
+    document.getElementById("profile-avatar").src = publicUrl;
+
+    alert("Profile photo updated!");
+}
+
+// Attach to button
+document.getElementById("btn-upload-avatar")
+    .addEventListener("click", uploadAvatar);
 
 document.addEventListener("DOMContentLoaded", () => {
+    //Upload Avatar Picture
+    const uploadBtn = document.getElementById("btn-upload-avatar");
+    if (uploadBtn) uploadBtn.addEventListener("click", uploadAvatar);
+
     // Join group button
     const joinBtn = document.getElementById("btn-add-group");
     if (joinBtn) {
