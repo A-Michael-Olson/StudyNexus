@@ -104,13 +104,9 @@ async function loadGroupMembers(groupId) {
             userEl.href = "../login/profilepage.html";
             userEl.classList.add("self");
         }
-
-        const avatar =
-            member.profiles?.profile_picture_url ||
-            "../../images/default-avatar.png";
-
+        let username = member.profiles?.username ?? "Unknown"
         userEl.innerHTML = `
-            <img class="user-avatar" src="${avatar}">
+            <img src="/images/studyNexus.png">
             <h3>${member.profiles?.username ?? "Unknown"}</h3>
         `;
 

@@ -44,7 +44,7 @@ async function userProfile()
     if (profileAvatar) {
         profileAvatar.src =
             profile?.profile_picture_url ||
-            "../../images/default-avatar.png";
+            "../../images/default-avatar.jpg";
     }
 }
 
@@ -187,10 +187,6 @@ async function uploadAvatar() {
     alert("Profile photo updated!");
 }
 
-// Attach to button
-document.getElementById("btn-upload-avatar")
-    .addEventListener("click", uploadAvatar);
-
 document.addEventListener("DOMContentLoaded", () => {
     //Upload Avatar Picture
     const uploadBtn = document.getElementById("btn-upload-avatar");
@@ -210,4 +206,3 @@ document.addEventListener("DOMContentLoaded", () => {
     userGroups();
     });
 });
-;

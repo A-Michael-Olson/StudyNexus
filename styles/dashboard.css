@@ -18,6 +18,8 @@
     background-color: var(--bg-card);
     padding: 1.5rem;
     box-shadow: var(--shadow-soft);
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
 }
 
 #left-sidebar {
@@ -282,6 +284,7 @@
 
 #users-sidebar h2 {
     margin-bottom: 1rem;
+    align-self: center;
 }
 
 #user-list {
@@ -329,13 +332,46 @@
     font-weight: normal;
 }
 
-.user-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
+.username-container {
+    position: relative;
+    cursor: default;
+    width: 100%;
+    display:flex
+}
+/* tooltips */
+
+.tooltip-text {
+  position: absolute;
+  visibility: hidden;
+  background-color: var(--bg-card);
+  border: 2px solid var(--accent-hover);
+  padding: 5px;
+  border-radius: 5px;
+  right: 105%;
+  top: -2px;
+}
+.tooltip-text::after {
+  border-width: 5px;
+  position: absolute;
+  left: 100%;
+  content: "";
+  top: 35%;
+  border-color: transparent transparent transparent var(--accent-hover);
+  border-style: solid;
 }
 
+.user-item:hover .tooltip-text {
+    visibility: visible;
+}
+
+.username-container h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width:100%;
+    color: var(--text-primary);
+    padding-top: 0.15em;
+    padding-left:0.4em;
+}
 
 /* ======================================================
    7 CHANNEL SIDEBAR
