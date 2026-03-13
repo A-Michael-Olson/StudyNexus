@@ -108,7 +108,7 @@ async function loadGroupMembers(groupId) {
 
         const avatar =
             member.profiles?.profile_picture_url ||
-            "../../images/default-avatar.png";
+            "../../images/default-avatar.jpg";
 
         userEl.innerHTML = `
             <div class="username-container">
