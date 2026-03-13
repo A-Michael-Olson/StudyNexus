@@ -187,10 +187,6 @@ async function uploadAvatar() {
     alert("Profile photo updated!");
 }
 
-// Attach to button
-document.getElementById("btn-upload-avatar")
-    .addEventListener("click", uploadAvatar);
-
 document.addEventListener("DOMContentLoaded", () => {
     //Upload Avatar Picture
     const uploadBtn = document.getElementById("btn-upload-avatar");
@@ -210,4 +206,3 @@ document.addEventListener("DOMContentLoaded", () => {
     userGroups();
     });
 });
-;
