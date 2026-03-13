@@ -106,8 +106,11 @@ async function loadGroupMembers(groupId) {
         }
         let username = member.profiles?.username ?? "Unknown"
         userEl.innerHTML = `
-            <img src="/images/studyNexus.png">
-            <h3>${member.profiles?.username ?? "Unknown"}</h3>
+            <div class="username-container">
+                <img src="/images/studyNexus.png">
+                <h3>${username}</h3>
+                <p class="tooltip-text">${username}</p>
+            </div>
         `;
 
         userList.appendChild(userEl);
