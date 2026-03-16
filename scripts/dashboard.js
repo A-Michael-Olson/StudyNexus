@@ -73,7 +73,8 @@ async function loadGroupMembers(groupId) {
         .select(`
             user_id,
             profiles (
-                username
+                username,
+                profile_picture_url
             )
         `)
         .eq("group_id", groupId);
@@ -104,10 +105,15 @@ async function loadGroupMembers(groupId) {
             userEl.classList.add("self");
         }
         let username = member.profiles?.username ?? "Unknown"
+
+        const avatar =
+            member.profiles?.profile_picture_url ||
+            "../../images/default-avatar.jpg";
+
         userEl.innerHTML = `
             <div class="username-container">
-                <img src="/images/studyNexus.png">
-                <h3>${username}</h3>
+                <img class="user-avatar" src="${avatar}">
+                <h3>${member.profiles?.username ?? "Unknown"}</h3>
                 <p class="tooltip-text">${username}</p>
             </div>
         `;

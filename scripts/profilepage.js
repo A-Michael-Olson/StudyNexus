@@ -44,7 +44,7 @@ async function userProfile()
     if (profileAvatar) {
         profileAvatar.src =
             profile?.profile_picture_url ||
-            "../../images/default-avatar.png";
+            "../../images/default-avatar.jpg";
     }
 }
 
