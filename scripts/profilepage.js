@@ -16,7 +16,7 @@ async function userProfile()
 
     const { data: profile, error: profileError } = await supabase
         .from("profiles")
-        .select("username", "profile_picture_url")
+        .select("username, profile_picture_url")
         .eq("id", user.id)
         .single();
 
