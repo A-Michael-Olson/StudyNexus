@@ -140,6 +140,7 @@ async function changeUsername() {
 
     alert("Username updated!");
 }
+
 async function uploadAvatar() {
     const fileInput = document.getElementById("avatar-input");
     const file = fileInput.files[0];
@@ -169,7 +170,7 @@ async function uploadAvatar() {
         .from("profile_pictures")
         .getPublicUrl(filePath);
 
-    const publicUrl = data.publicUrl;
+    const publicUrl = `${data.publicUrl}?t=${Date.now()}`;
 
     const { error: profileError } = await supabase
         .from("profiles")
