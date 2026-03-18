@@ -37,6 +37,7 @@
     border-left: 1px solid var(--accent);
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 #group-content {
@@ -292,6 +293,8 @@
     flex-direction: column;
     flex: 1;
     gap: 0.5rem;
+    overflow-y: auto;
+    scroll-behavior: smooth;
 }
 
 #leave-group-container {
