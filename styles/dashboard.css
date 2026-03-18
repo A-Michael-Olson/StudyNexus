@@ -466,3 +466,63 @@ a.self {
     height: 28px;
     min-width: 110px;
 }
+
+/* ======================================================
+   8 RESPONSIVE DESIGN
+   ====================================================== */
+@media (max-width: 768px) {
+
+    #dashboard {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+    }
+
+    #left-sidebar,
+    #users-sidebar {
+        display: none;
+    }
+
+    #group-content {
+        width: 100%;
+        height: calc(100vh - 3.5rem);
+        display: flex;
+        flex-direction: column;
+    }
+
+    #chat-content {
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    #input-bar {
+        position: sticky;
+        bottom: 0;
+        background: var(--bg-card);
+        padding-bottom: 0.5rem;
+    }
+
+    .mobile-toggle {
+        display: inline-block;
+    }
+
+    .mobile-open #left-sidebar,
+    .mobile-open #users-sidebar {
+        display: block;
+        position: fixed;
+        top: 3.5rem;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 3.5rem);
+        background: var(--bg-card);
+        z-index: 2000;
+        overflow-y: auto;
+        padding: 1rem;
+    }
+}
+
+.mobile-toggle {
+    display: none;
+    margin-right: 0.5rem;
+    padding: 4px 8px;
+}

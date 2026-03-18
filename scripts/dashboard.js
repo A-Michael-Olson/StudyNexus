@@ -202,6 +202,15 @@ document.addEventListener("DOMContentLoaded", () => {
         leaveBtn.addEventListener("click", leaveGroup);
     }
 
+
+    const toggleBtn = document.getElementById("btn-toggle-sidebar");
+
+    if (toggleBtn) {
+        toggleBtn.addEventListener("click", () => {
+            document.body.classList.toggle("mobile-open");
+        });
+    }
+
     loadDashboard();
 });
 
