@@ -68,6 +68,7 @@
 .nav-left {
     display: flex;
     align-items: center;
+    gap: 0.5rem;
 }
 
 .nav-logo {
@@ -467,6 +468,16 @@ a.self {
     min-width: 110px;
 }
 
+.mobile-toggle {
+    display: none;
+    font-size: 1.4rem;
+    padding: 4px 8px;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
 /* ======================================================
    8 RESPONSIVE DESIGN
    ====================================================== */
@@ -503,7 +514,7 @@ a.self {
     }
 
     .mobile-toggle {
-        display: inline-block;
+        display: block;
     }
 
     .mobile-open #left-sidebar,
@@ -521,8 +532,3 @@ a.self {
     }
 }
 
-.mobile-toggle {
-    display: none;
-    margin-right: 0.5rem;
-    padding: 4px 8px;
-}
