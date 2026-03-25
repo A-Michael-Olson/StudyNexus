@@ -13,6 +13,51 @@ export function updateHeaderChannel(channelName) {
     navName.textContent = `${groupName} - #${channelName}`;
 }
 
+// ================= MOBILE SIDEBAR SETUP =================
+function setupMobileSidebar() {
+    if (window.innerWidth > 768) return;
+    if (document.getElementById("mobile-channels").children.length > 0) return;
+
+    const channels = document.querySelector(".channel-sidebar");
+    const tasks = document.querySelector(".task-columns");
+    const userList = document.querySelector("#user-list");
+    const leaveBtn = document.querySelector("#leave-group-container");
+
+    if (channels) {
+        document.getElementById("mobile-channels").appendChild(channels);
+    }
+
+    if (tasks) {
+        document.getElementById("mobile-tasks").appendChild(tasks);
+    }
+
+    if (userList && leaveBtn) {
+        const membersContainer = document.getElementById("mobile-members");
+        membersContainer.appendChild(userList);
+        membersContainer.appendChild(leaveBtn);
+    }
+
+    // Tab switching
+    const buttons = document.querySelectorAll(".mobile-tabs button");
+
+    buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+
+            buttons.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            const tab = btn.dataset.tab;
+
+            document.querySelectorAll(".mobile-section").forEach(sec => {
+                sec.style.display = "none";
+            });
+
+            const activeSection = document.getElementById("mobile-" + tab);
+            if (activeSection) activeSection.style.display = "block";
+        });
+    });
+}
+
 async function loadDashboard() {
     // 1. Get logged-in user
     const {
@@ -171,7 +216,7 @@ async function leaveGroup() {
     window.location.reload();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
     const navName = document.getElementById("nav-group-name");
 
@@ -211,7 +256,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    loadDashboard();
+    await loadDashboard();
+    setupMobileSidebar();
 });
 
 
