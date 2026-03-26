@@ -1,6 +1,8 @@
 import { supabase } from "./supabase.js";
 import { loadTasks, initializeTaskUI } from "./tasks.js";
 import { initializeChat } from "./messages.js";
+import { initWhiteboard } from "./whiteboard.js";
+import { stopChatSubscription } from "./messages.js";
 
 
 export function updateHeaderChannel(channelName) {
@@ -261,3 +263,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 
+
+export function switchToWhiteboard(channelId) {
+    document.getElementById("chat-view").style.display = "none";
+    document.getElementById("whiteboard-container").style.display = "flex";
+
+    stopChatSubscription();
+
+    initWhiteboard(channelId);
+}
+
+export function switchToChat(channelId) {
+    document.getElementById("chat-view").style.display = "block";
+    document.getElementById("whiteboard-container").style.display = "none";
+
+    // reopen chat channel
+    if (channelId) {
+        const event = new CustomEvent("openChatChannel", { detail: channelId });
+        window.dispatchEvent(event);
+    }
+}

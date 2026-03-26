@@ -87,18 +87,32 @@
         </div>
 
         <div id="group-content">
-            <!-- Window for received/sent messages -->
-            <div id="chat-content">
-            </div>
-            <div id="input-bar">
-                <div class="textbox">
-                    <textarea id="textbox-input" placeholder="Type a message..." rows="1"></textarea>
-                </div>
 
-                <div class="send-msg">
-                    <button type="button" id="btn-send" class="btn">Send</button>
+            <!-- CHAT VIEW -->
+            <div id="chat-view">
+                <div id="chat-content"></div>
+                <div id="input-bar">
+                    <div class="textbox">
+                        <textarea id="textbox-input" placeholder="Type a message..." rows="1"></textarea>
+                    </div>
+
+                    <div class="send-msg">
+                        <button type="button" id="btn-send" class="btn">Send</button>
+                    </div>
                 </div>
             </div>
+
+            <!-- WHITEBOARD VIEW -->
+            <div id="whiteboard-container" style="display: none;">
+                <div id="whiteboard-toolbar">
+                    Color:
+                    <input type="color" id="color" value="#000000" />
+                    Size:
+                    <input type="number" id="size" value="3" min="1" max="20" />
+                </div>
+                <canvas id="board"></canvas>
+            </div>
+
         </div>
         <div id="users-sidebar">
             <h2>Members</h2>
@@ -140,5 +154,6 @@
     </div>
     <script type="module" src="../../scripts/dashboard.js"></script>
     <script type="module" src="../../scripts/toggle-dark.js"></script> <!-- Dark theme -->
+    <script type="module" src="../../scripts/whiteboard.js"></script>
 </body>
 </html>

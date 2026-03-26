@@ -479,7 +479,28 @@ a.self {
 }
 
 /* ======================================================
-   8 RESPONSIVE DESIGN
+   8 WHITEBOARD
+   ====================================================== */
+#whiteboard-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#whiteboard-toolbar {
+    padding: 8px;
+    background: var(--bg-card);
+}
+
+#board {
+    flex: 1;
+    width: 100%;
+    background: white;
+    cursor: crosshair;
+}
+
+/* ======================================================
+   9 RESPONSIVE DESIGN
    ====================================================== */
 @media (max-width: 768px) {
 

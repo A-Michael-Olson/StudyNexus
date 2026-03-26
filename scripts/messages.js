@@ -1,5 +1,6 @@
 import { supabase } from "./supabase.js";
 import { updateHeaderChannel } from "./dashboard.js";
+import { switchToWhiteboard, switchToChat } from "./dashboard.js";
 
 let currentSubscription = null;
 let currentChannelId = null;
@@ -31,14 +32,17 @@ async function loadChannels(getGroupId) {
 
         btn.onclick = () => {
 
-            // highlight active channel
             document.querySelectorAll(".channel-item").forEach(el => {
                 el.classList.remove("active");
             });
 
             btn.classList.add("active");
 
-            openChannel(channel.id);
+            if (channel.type === "whiteboard") {
+                switchToWhiteboard(channel.id);
+            } else {
+                switchToChat(channel.id);
+            }
 
             updateHeaderChannel(channel.name);
         };
@@ -51,7 +55,11 @@ async function loadChannels(getGroupId) {
         const firstBtn = container.querySelector(".channel-item");
         if (firstBtn) firstBtn.classList.add("active");
 
-        openChannel(data[0].id);
+        if (data[0].type === "whiteboard") {
+            switchToWhiteboard(data[0].id);
+        } else {
+            switchToChat(data[0].id);
+        }
         updateHeaderChannel(data[0].name);
     }
 
@@ -190,12 +198,20 @@ async function createChannel(getGroupId) {
     const name = prompt("Enter channel name");
     if (!name) return;
 
+    const type = prompt("Type 'chat' or 'whiteboard'")?.toLowerCase();
+
+    if (!["chat", "whiteboard"].includes(type)) {
+        alert("Invalid type");
+        return;
+    }
+
     const { data: { user } } = await supabase.auth.getUser();
 
     const { error } = await supabase
         .from("channels")
         .insert({
             name,
+            type,
             group_id: getGroupId(),
             created_by: user.id
         });
@@ -284,6 +300,10 @@ async function deleteMessage(id) {
     // Do NOT remove from UI here — realtime handles it
 }
 
+window.addEventListener("openChatChannel", (e) => {
+    openChannel(e.detail);
+});
+
 async function openChannel(channelId) {
 
     currentChannelId = channelId;
@@ -300,4 +320,11 @@ function removeMessageFromUI(id) {
 function scrollToBottom() {
     const container = document.getElementById("chat-content");
     container.scrollTop = container.scrollHeight;
+}
+
+export function stopChatSubscription() {
+    if (currentSubscription) {
+        supabase.removeChannel(currentSubscription);
+        currentSubscription = null;
+    }
 }
