@@ -28,9 +28,15 @@ async function loadChannels(getGroupId) {
 
         const btn = document.createElement("button");
         btn.classList.add("channel-item");
-        btn.textContent = "# " + channel.name;
 
-        btn.onclick = () => {
+        // include delete button in SAME element
+        btn.innerHTML = `
+            <span># ${channel.name}</span>
+            <span class="channel-delete">&times;</span>
+        `;
+
+        // CLICK = open channel
+        btn.addEventListener("click", () => {
 
             document.querySelectorAll(".channel-item").forEach(el => {
                 el.classList.remove("active");
@@ -45,11 +51,24 @@ async function loadChannels(getGroupId) {
             }
 
             updateHeaderChannel(channel.name);
-        };
+        });
+
+        // DELETE BUTTON (separate click)
+        const deleteBtn = btn.querySelector(".channel-delete");
+
+        deleteBtn.addEventListener("click", (e) => {
+            e.stopPropagation(); 
+
+            const confirmed = confirm(`Delete #${channel.name}?`);
+            if (confirmed) {
+                deleteChannel(channel.id, getGroupId);
+            }
+        });
 
         container.appendChild(btn);
     });
 
+    // auto-select first channel
     if (data.length > 0) {
 
         const firstBtn = container.querySelector(".channel-item");
@@ -60,9 +79,9 @@ async function loadChannels(getGroupId) {
         } else {
             switchToChat(data[0].id);
         }
+
         updateHeaderChannel(data[0].name);
     }
-
 }
 
 export async function initializeChat(getGroupId) {
@@ -327,4 +346,20 @@ export function stopChatSubscription() {
         supabase.removeChannel(currentSubscription);
         currentSubscription = null;
     }
+}
+
+async function deleteChannel(channelId, getGroupId) {
+    const { error } = await supabase
+        .from("channels")
+        .delete()
+        .eq("id", channelId);
+
+    if (error) {
+        console.error("Delete channel error:", error);
+        return;
+    }
+
+    currentChannelId = null; // reset
+
+    await loadChannels(getGroupId);
 }
