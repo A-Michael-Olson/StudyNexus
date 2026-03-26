@@ -145,6 +145,14 @@
     min-height: 0;
 }
 
+#chat-view,
+#whiteboard-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
 /* message styling */
 .message {
     position: relative;
@@ -508,6 +516,10 @@ a.self {
     width: 100%;
     background: white;
     cursor: crosshair;
+}
+
+.hidden {
+    display: none;
 }
 
 /* ======================================================

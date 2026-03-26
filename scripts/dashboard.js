@@ -265,19 +265,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 export function switchToWhiteboard(channelId) {
-    document.getElementById("chat-view").style.display = "none";
-    document.getElementById("whiteboard-container").style.display = "flex";
+    const chat = document.getElementById("chat-view");
+    const board = document.getElementById("whiteboard-container");
+
+    chat.classList.add("hidden");
+    board.classList.remove("hidden");
 
     stopChatSubscription();
-
     initWhiteboard(channelId);
 }
 
 export function switchToChat(channelId) {
-    document.getElementById("chat-view").style.display = "block";
-    document.getElementById("whiteboard-container").style.display = "none";
+    const chat = document.getElementById("chat-view");
+    const board = document.getElementById("whiteboard-container");
 
-    // reopen chat channel
+    chat.classList.remove("hidden");
+    board.classList.add("hidden");
+
     if (channelId) {
         const event = new CustomEvent("openChatChannel", { detail: channelId });
         window.dispatchEvent(event);
