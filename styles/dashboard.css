@@ -138,6 +138,13 @@
     min-height: 0;
 }
 
+#chat-view {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
 /* message styling */
 .message {
     position: relative;
