@@ -520,7 +520,7 @@ a.self {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 /* ======================================================
