@@ -112,9 +112,8 @@
 }
 
 #group-content {
-    display: grid;
-    grid-template-rows: 1fr auto;
-    /* group header | chat | input */
+    display: flex;
+    flex-direction: column;
     height: 100%;
     padding: 1.5rem 2rem;
 }
@@ -436,6 +435,9 @@ a.self {
     font-size: 0.9rem;
     transition: var(--transition);
     width: 100%;
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
 .channels-header {
@@ -469,6 +471,10 @@ a.self {
     border: none;
     color: white;
     cursor: pointer;
+}
+
+.mobile-tabs {
+    display: none;
 }
 
 /* ======================================================
