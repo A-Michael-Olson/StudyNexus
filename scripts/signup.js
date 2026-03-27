@@ -16,16 +16,12 @@ form.addEventListener("submit", async (e) => {
             data: {
                 username: username
             },
-            emailRedirectTo: 'https://a-michael-olson.github.io/StudyNexus/pages/login/landingpage.html'
         }
     });
 
     if (error) {
         alert(error.message);
         return;
-    }
-
-    alert("Success! Please check your email inbox to confirm your account before logging in.");
-    
+    }    
     form.reset();
 });
