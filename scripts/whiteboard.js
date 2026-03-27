@@ -136,15 +136,25 @@ export async function initWhiteboard(channelId) {
                 filter: `channel_id=eq.${channelId}`
             },
             (payload) => {
-
                 console.log("REALTIME HIT:", payload);
-
 
                 const s = payload.new;
 
                 if (s.user_id === currentUserId) return;
 
-                const pts = s.points;
+                let pts = s.points;
+
+                // Ensure it's an array
+                if (typeof pts === "string") {
+                    try {
+                        pts = JSON.parse(pts);
+                    } catch (e) {
+                        console.error("Failed to parse points:", pts);
+                        return;
+                    }
+                }
+
+                if (!pts || pts.length < 2) return;
 
                 for (let i = 1; i < pts.length; i++) {
                     drawLocalLine(
