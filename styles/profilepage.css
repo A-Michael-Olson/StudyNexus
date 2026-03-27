@@ -39,12 +39,10 @@ body {
    border: 3px solid var(--accent);
 }
  
-/* Hide raw file input, keep upload button */
 #avatar-input {
    display: none;
 }
  
-/* ── Name + email tighter spacing ── */
 #profile-user-name {
    margin: 0.5rem 0 0.1rem;
    font-size: 1.3rem;
@@ -57,7 +55,6 @@ body {
    font-weight: normal;
 }
  
-/* ── Toggle button anchored to top-right ── */
 .top-right button {
    position: fixed;
    top: 0;
@@ -83,12 +80,11 @@ body {
  
 .group-content {
    max-width: 340px;
-   word-break: break-all;      /* stops UUID overflow */
+   word-break: break-all;      
    font-size: 0.875rem;
    line-height: 1.5;
 }
  
-/* Truncate the Group ID so it doesn't dominate the card */
 .group-content .group-id {
    color: var(--text-muted, #888);
    font-size: 0.75rem;
@@ -119,7 +115,6 @@ body {
    flex: 1 1 140px;
 }
  
-/* Touch-friendly buttons */
 .btn {
    padding: 0.45rem 1rem;
    font-size: 0.9rem;
