@@ -83,7 +83,19 @@ async function loadDashboard() {
         return;
     }
 
+    const groupId = new URLSearchParams(window.location.search).get("group");
+
+    if (!groupId) {
+        redirectToProfile();
+        return;
+    }
+
+    function redirectToProfile() {
+        window.location.href = "../profile/profile.html";
+    }
+
     window.currentUser = user;
+
 
     // 2. Get groups this user belongs to
     const { data: memberships, error: memberError } = await supabase
@@ -102,8 +114,26 @@ async function loadDashboard() {
         return;
     }
 
-    const savedGroup = localStorage.getItem("selectedGroup");
-    const activeGroup = memberships.find(m => m.group_id === savedGroup)?.groups || memberships[0].groups;
+    let activeGroup = null;
+
+    // 1. If URL has group, use it
+    if (groupId) {
+        const match = memberships.find(m => m.group_id === groupId);
+        if (match) {
+            activeGroup = match.groups;
+        } else {
+            redirectToProfile(); // not in this group
+            return;
+        }
+    }
+
+    // 2. Otherwise fallback
+    if (!activeGroup) {
+        const savedGroup = localStorage.getItem("selectedGroup");
+        activeGroup =
+            memberships.find(m => m.group_id === savedGroup)?.groups ||
+            memberships[0].groups;
+    }
     window.currentGroupId = activeGroup.id;
 
     const navName = document.getElementById("nav-group-name");
