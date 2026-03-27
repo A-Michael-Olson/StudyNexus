@@ -21,7 +21,7 @@ function setupMobileSidebar() {
     if (document.getElementById("mobile-channels").children.length > 0) return;
 
     const channels = document.querySelector(".channel-sidebar");
-    const tasks = document.querySelector(".task-columns");
+    const tasks = document.querySelector("#task-section");
     const userList = document.querySelector("#user-list");
     const leaveBtn = document.querySelector("#leave-group-container");
 
@@ -58,6 +58,17 @@ function setupMobileSidebar() {
             if (activeSection) activeSection.style.display = "block";
         });
     });
+    // Set default visible tab (Channels)
+    const defaultTab = "channels";
+
+    document.querySelectorAll(".mobile-section").forEach(sec => {
+        sec.style.display = "none";
+    });
+
+    const defaultSection = document.getElementById("mobile-" + defaultTab);
+    if (defaultSection) {
+        defaultSection.style.display = "block";
+    }
 }
 
 async function loadDashboard() {
