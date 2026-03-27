@@ -91,7 +91,7 @@ async function loadDashboard() {
     }
 
     function redirectToProfile() {
-        window.location.href = "../login/profilepage.html";
+        window.location.href = "../login/profilepage.html"; 
     }
 
     window.currentUser = user;
