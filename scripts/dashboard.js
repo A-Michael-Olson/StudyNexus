@@ -119,11 +119,23 @@ async function loadDashboard() {
     // 1. If URL has group, use it
     if (groupId) {
         const match = memberships.find(m => m.group_id === groupId);
+
         if (match) {
             activeGroup = match.groups;
         } else {
-            redirectToProfile(); // not in this group
-            return;
+            //  Try fetching the group directly (user JUST joined)
+            const { data: groupData, error } = await supabase
+                .from("groups")
+                .select("id, name")
+                .eq("id", groupId)
+                .single();
+
+            if (groupData) {
+                activeGroup = groupData;
+            } else {
+                redirectToProfile();
+                return;
+            }
         }
     }
 
