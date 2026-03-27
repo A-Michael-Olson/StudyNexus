@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const groupId = navName.dataset.groupId;
         if (!groupId) return;
 
-        const inviteLink = `${window.location.origin}/dashboard/dashboard.html?group=${groupId}`;
+        const inviteLink = `${window.location.origin}/StudyNexus/pages/dashboard/dashboard.html?group=${groupId}`;
 
         await navigator.clipboard.writeText(inviteLink);
 
