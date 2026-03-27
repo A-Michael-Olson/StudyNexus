@@ -320,7 +320,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     await loadDashboard();
-    window.history.replaceState({}, document.title, window.location.pathname);
+    window.history.replaceState({}, document.title, window.location.pathname);  
     setupMobileSidebar();
 });
 
