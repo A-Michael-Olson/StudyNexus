@@ -203,6 +203,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const changeBtn = document.getElementById("btn-change-group");
     if (changeBtn) changeBtn.addEventListener("click", changeUsername);
 
+    const logoutBtn = document.getElementById("btn-logout");
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", async () => {
+            const confirmed = confirm("Log out of your account?");
+            if (!confirmed) return;
+
+            const { error } = await supabase.auth.signOut();
+
+            if (error) {
+                console.error("Logout error:", error);
+                alert("Failed to log out");
+                return;
+            }
+
+            window.location.href = "../login/login.html";
+        });
+    }
+
     userProfile().then(()=> {
     userGroups();
     });

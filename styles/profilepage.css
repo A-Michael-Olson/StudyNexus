@@ -198,6 +198,22 @@ body {
     padding: 0.45rem 0.75rem;
     font-size: 0.85rem;
 }
+
+.logout-container {
+    margin-top: 0.75rem;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-danger {
+    background-color: #e54848;
+    color: white;
+    border: none;
+}
+
+    .btn-danger:hover {
+        background-color: #c73a3a;
+    }
  
 
  
@@ -205,6 +221,10 @@ body {
    MOBILE STYLING
    ====================================================== */
 @media (max-width: 600px) {
+
+    .logout-container {
+        margin-top: 1rem;
+    }
 
     .user-change {
         padding: 0 0.75rem;
