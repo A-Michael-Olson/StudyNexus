@@ -316,7 +316,6 @@ async function deleteMessage(id) {
     if (error) {
         console.error("Delete error:", error);
     }
-    // Do NOT remove from UI here — realtime handles it
 }
 
 window.addEventListener("openChatChannel", (e) => {
@@ -329,6 +328,7 @@ async function openChannel(channelId) {
 
     await loadMessages(channelId);
     subscribeToMessages(channelId);
+    document.body.classList.remove("mobile-open");
 }
 
 function removeMessageFromUI(id) {

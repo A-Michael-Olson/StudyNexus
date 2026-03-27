@@ -21,7 +21,7 @@ function setupMobileSidebar() {
     if (document.getElementById("mobile-channels").children.length > 0) return;
 
     const channels = document.querySelector(".channel-sidebar");
-    const tasks = document.querySelector("#task-section");
+    const tasks = document.querySelector("#tasks-section");
     const userList = document.querySelector("#user-list");
     const leaveBtn = document.querySelector("#leave-group-container");
 
@@ -237,10 +237,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         const groupId = navName.dataset.groupId;
         if (!groupId) return;
 
-        await navigator.clipboard.writeText(groupId);
+        const inviteLink = `${window.location.origin}/dashboard/dashboard.html?group=${groupId}`;
+
+        await navigator.clipboard.writeText(inviteLink);
 
         const originalText = navName.textContent;
-        navName.textContent = "Copied Group ID!";
+        navName.textContent = "Invite Link Copied!";
 
         setTimeout(() => {
             navName.textContent = originalText;
@@ -269,10 +271,49 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
+    const params = new URLSearchParams(window.location.search);
+    const groupFromLink = params.get("group");
+
+    if (groupFromLink) {
+        await autoJoinGroup(groupFromLink);
+
+        // Clean URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     await loadDashboard();
     setupMobileSidebar();
 });
 
+
+async function autoJoinGroup(groupId) {
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) return;
+
+    // Check if already a member
+    const { data: existing } = await supabase
+        .from("group_members")
+        .select("*")
+        .eq("group_id", groupId)
+        .eq("user_id", user.id)
+        .single();
+
+    if (existing) return; // already in group
+
+    // Join group
+    const { error } = await supabase
+        .from("group_members")
+        .insert({
+            group_id: groupId,
+            user_id: user.id
+        });
+
+    if (error) {
+        console.error("Auto join failed:", error);
+        alert("Invalid or expired invite link");
+    }
+}
 
 
 export function switchToWhiteboard(channelId) {

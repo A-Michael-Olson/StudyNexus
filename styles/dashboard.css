@@ -562,6 +562,10 @@ a.self {
         display: block;
     }
 
+    #board {
+        touch-action: none;
+    }
+
 
     /* ================= MOBILE SIDEBAR ================= */
     #mobile-sidebar {

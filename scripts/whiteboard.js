@@ -42,13 +42,15 @@ export async function initWhiteboard(channelId) {
     function getMousePos(e) {
         const rect = canvas.getBoundingClientRect();
         return {
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top,
+            x: e.clientX ?? e.touches?.[0]?.clientX - rect.left,
+            y: e.clientY ?? e.touches?.[0]?.clientY - rect.top,
         };
     }
 
     function startDraw(e) {
         drawing = true;
+        e.preventDefault();
+        canvas.setPointerCapture(e.pointerId);
         const pos = getMousePos(e);
         lastX = pos.x;
         lastY = pos.y;
@@ -70,42 +72,49 @@ export async function initWhiteboard(channelId) {
     async function drawMove(e) {
         if (!drawing) return;
 
-        const now = Date.now();
-        if (now - lastSent < 25) return;
-        lastSent = now;
-
         const pos = getMousePos(e);
         const x = pos.x;
         const y = pos.y;
         const color = colorInput.value;
         const size = parseInt(sizeInput.value, 10);
 
+        // ALWAYS draw locally (smooth)
         drawLocalLine(lastX, lastY, x, y, color, size);
 
-        const { error } = await supabase.from('strokes').insert({
-            channel_id: channelId,
-            user_id: currentUserId,
-            x1: lastX,
-            y1: lastY,
-            x2: x,
-            y2: y,
-            color,
-            size,
-        });
-        if (error) console.error("Stroke insert failed:", error);
+        // ONLY throttle the database calls
+        const now = Date.now();
+        if (now - lastSent >= 25) {
+            lastSent = now;
+
+            const { error } = await supabase.from('strokes').insert({
+                channel_id: channelId,
+                user_id: currentUserId,
+                x1: lastX,
+                y1: lastY,
+                x2: x,
+                y2: y,
+                color,
+                size,
+            });
+
+            if (error) console.error("Stroke insert failed:", error);
+        }
 
         lastX = x;
         lastY = y;
     }
 
-    function endDraw() {
+    function endDraw(e) {
+        e.preventDefault();
+        canvas.releasePointerCapture?.(e.pointerId);
         drawing = false;
     }
 
-    canvas.onmousedown = startDraw;
-    canvas.onmousemove = drawMove;
-    canvas.onmouseup = endDraw;
-    canvas.onmouseleave = endDraw;
+    canvas.onpointerdown = startDraw;
+    canvas.onpointermove = drawMove;
+    canvas.onpointerup = endDraw;
+    canvas.onpointerleave = endDraw;
+    canvas.onpointercancel = endDraw;
 
     // ================= REALTIME =================
 
