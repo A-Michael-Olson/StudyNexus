@@ -87,7 +87,7 @@ async function userGroups()
         `
         <div class="group-content">
             <p>Group Name: ${group.name}</p>
-            <p>Group ID: ${group.id}</p>
+            <p>Group ID: <span class="group-id">${group.id}</span></p>
         </div>
         `;
 

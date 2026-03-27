@@ -564,7 +564,6 @@ a.self {
 
 
     /* ================= MOBILE SIDEBAR ================= */
-
     #mobile-sidebar {
         transform: translateX(-100%);
         transition: transform 0.25s ease;
