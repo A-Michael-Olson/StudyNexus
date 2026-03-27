@@ -13,9 +13,12 @@ body {
    overflow-x: hidden;
 }
  
-/* ── Top bar: logo + toggle in one row ── */
+/* ── Header ── */
 #profileHeader {
-   padding: 1.25rem 1.5rem 1rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   padding: 2rem 1.5rem 1rem;
    position: relative;
 }
  
@@ -23,38 +26,46 @@ body {
    max-width: 200px;
    height: auto;
    display: block;
-   margin: 0 auto 1.25rem;
+   margin-bottom: 1.25rem;
 }
  
 /* ── Avatar row ── */
 .profile-photo {
+   display: flex;
    align-items: center;
-   gap: 1rem;
+   justify-content: center;
+   gap: 1.2rem;
 }
  
 #profile-avatar {
-   width: 80px;
-   height: 80px;
+   width: 100px;
+   height: 100px;
    object-fit: cover;
+   border-radius: 50%;
    border: 3px solid var(--accent);
 }
  
+/* Hide raw file input — upload button triggers it via JS */
 #avatar-input {
    display: none;
 }
  
+/* ── Name & email ── */
 #profile-user-name {
-   margin: 0.5rem 0 0.1rem;
+   margin: 0.75rem 0 0.1rem;
    font-size: 1.3rem;
+   text-align: center;
 }
  
 #profile-email {
    margin: 0 0 0.5rem;
    font-size: 0.95rem;
-   opacity: 0.7;
    font-weight: normal;
+   opacity: 0.7;
+   text-align: center;
 }
  
+/* ── Theme toggle ── */
 .top-right button {
    position: fixed;
    top: 0;
@@ -66,6 +77,11 @@ body {
 }
  
 /* ── Groups heading ── */
+.groups-label {
+   display: flex;
+   justify-content: center;
+}
+ 
 .groups-label h1 {
    font-size: 1.4rem;
    margin: 0.5rem 0 0.75rem;
@@ -73,31 +89,52 @@ body {
  
 /* ── Group cards ── */
 #user-groups {
+   display: inline-flex;
+   flex-wrap: wrap;
    gap: 1rem;
-   padding: 0 1.5rem;
    justify-content: center;
+   width: 100%;
+   padding: 0 1.5rem;
+   box-sizing: border-box;
 }
  
 .group-content {
-   max-width: 340px;
-   word-break: break-all;      
+   background-color: var(--bg-card);
+   padding: 0.8rem 1rem;
+   border: 2px solid var(--accent);
+   border-radius: 10px;
+   box-shadow: var(--shadow-soft);
+   cursor: pointer;
    font-size: 0.875rem;
    line-height: 1.5;
+   max-width: 340px;
 }
  
+.group-content:hover {
+   color: var(--text-light);
+   background-color: var(--accent);
+   border: 2px solid var(--accent);
+   transition: background-color 100ms ease-in-out;
+}
+ 
+/* UUID truncation */
 .group-content .group-id {
    color: var(--text-muted, #888);
    font-size: 0.75rem;
+   display: block;
    white-space: nowrap;
    overflow: hidden;
    text-overflow: ellipsis;
+   max-width: 100%;
 }
  
-/* ── Add group + change username row ── */
+/* ── Add group + change username ── */
 .user-change {
-   gap: 0.6rem;
-   margin-top: 1.25rem;
-   margin-bottom: 2rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 0.75rem;
+   margin: 1.25rem auto 2rem;
 }
  
 .group-input {
@@ -115,72 +152,26 @@ body {
    flex: 1 1 140px;
 }
  
+/* ── Buttons ── */
 .btn {
    padding: 0.45rem 1rem;
    font-size: 0.9rem;
    border-radius: 8px;
    min-height: 38px;
+   cursor: pointer;
 }
  
-/* ── Mobile ── */
-@media (max-width: 640px) {
- 
-   #profileHeader {
-      padding: 1rem;
-   }
- 
-   .profile-photo {
-      flex-direction: column;
-   }
- 
-   #user-groups {
-      flex-direction: column;
-      align-items: stretch;
-      padding: 0 1rem;
-   }
- 
-   .group-content {
-      max-width: 100%;
-   }
- 
-   .user-change {
-      flex-direction: column;
-      align-items: stretch;
-      margin: 1rem;
-   }
- 
-   .group-input {
-      width: 100%;
-   }
- 
-   #group-input {
-      flex: 1;
-   }
- 
-   #btn-add-group,
-   #btn-change-group {
-      width: 100%;
-   }
-}
-
 /* ======================================================
-   MOBILE STYLING
-====================================================== */
- 
+   MOBILE — max-width: 768px
+   ====================================================== */
 @media (max-width: 768px) {
- 
-   body {
-      overflow-x: hidden;
-   }
  
    #profileHeader {
       padding: 1rem 1rem 0.5rem;
-      position: relative;
    }
  
    #logo {
       max-width: 160px;
-      height: auto;
    }
  
    .profile-photo {
@@ -190,30 +181,14 @@ body {
    }
  
    #profile-avatar {
-      width: 90px !important;
+      width: 90px;
       height: 90px;
-      object-fit: cover;
-   }
- 
-   #avatar-input {
-      display: none;
-   }
- 
-   .top-right button {
-      position: fixed;
-      top: 0;
-      right: 0;
-      margin: 0.75rem;
-      font-size: 11px;
-      padding: 6px 10px;
-      z-index: 100;
    }
  
    #profile-user-name,
    #profile-email {
       font-size: 1rem;
       margin: 0.25rem 0;
-      text-align: center;
       word-break: break-all;
    }
  
@@ -226,41 +201,30 @@ body {
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      gap: 0.75rem;
       padding: 0 1rem;
-      width: 100%;
-      box-sizing: border-box;
    }
  
    .group-content {
-      margin: 0;
-      width: 100%;
-      box-sizing: border-box;
+      max-width: 100%;
    }
  
    .user-change {
       flex-direction: column;
       align-items: stretch;
-      gap: 0.75rem;
       margin: 1rem 1rem 2rem;
    }
  
    .group-input {
-      display: flex;
-      gap: 0.5rem;
+      width: 100%;
    }
  
    #group-input {
       flex: 1;
-      min-width: 0;
-      padding: 0.5rem 0.75rem;
-      font-size: 0.95rem;
       box-sizing: border-box;
    }
  
    #btn-add-group {
       white-space: nowrap;
-      padding: 0.5rem 1rem;
    }
  
    #change-username,
@@ -268,17 +232,12 @@ body {
       width: 100%;
    }
  
-   #btn-change-group {
-      padding: 0.65rem;
-      font-size: 0.95rem;
-   }
- 
    .btn {
       min-height: 40px;
-      cursor: pointer;
    }
 }
  
+/* Two-column group grid on medium-width phones */
 @media (min-width: 480px) and (max-width: 768px) {
  
    #user-groups {
@@ -288,6 +247,7 @@ body {
    }
  
    .group-content {
-      width: calc(50% - 0.75rem);
+      width: calc(50% - 0.5rem);
    }
 }
+ 
