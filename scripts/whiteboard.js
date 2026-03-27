@@ -3,6 +3,7 @@ import { supabase } from "./supabase.js";
 let strokesChannel = null;
 let currentUserId = null;
 let resizeHandler = null;
+let currentStroke = [];
 
 
 
@@ -41,17 +42,23 @@ export async function initWhiteboard(channelId) {
 
     function getMousePos(e) {
         const rect = canvas.getBoundingClientRect();
+
+        const clientX = e.clientX ?? e.touches?.[0]?.clientX;
+        const clientY = e.clientY ?? e.touches?.[0]?.clientY;
+
         return {
-            x: e.clientX ?? e.touches?.[0]?.clientX - rect.left,
-            y: e.clientY ?? e.touches?.[0]?.clientY - rect.top,
+            x: clientX - rect.left,
+            y: clientY - rect.top,
         };
     }
 
     function startDraw(e) {
         drawing = true;
-        e.preventDefault();
         canvas.setPointerCapture(e.pointerId);
+
         const pos = getMousePos(e);
+        currentStroke = [pos];
+
         lastX = pos.x;
         lastY = pos.y;
     }
@@ -69,45 +76,40 @@ export async function initWhiteboard(channelId) {
     // throttle to avoid DB spam
     let lastSent = 0;
 
-    async function drawMove(e) {
+    function drawMove(e) {
         if (!drawing) return;
 
         const pos = getMousePos(e);
-        const x = pos.x;
-        const y = pos.y;
         const color = colorInput.value;
         const size = parseInt(sizeInput.value, 10);
 
-        // ALWAYS draw locally (smooth)
-        drawLocalLine(lastX, lastY, x, y, color, size);
+        drawLocalLine(lastX, lastY, pos.x, pos.y, color, size);
 
-        // ONLY throttle the database calls
-        const now = Date.now();
-        if (now - lastSent >= 25) {
-            lastSent = now;
+        currentStroke.push(pos);
 
-            const { error } = await supabase.from('strokes').insert({
-                channel_id: channelId,
-                user_id: currentUserId,
-                x1: lastX,
-                y1: lastY,
-                x2: x,
-                y2: y,
-                color,
-                size,
-            });
-
-            if (error) console.error("Stroke insert failed:", error);
-        }
-
-        lastX = x;
-        lastY = y;
+        lastX = pos.x;
+        lastY = pos.y;
     }
 
-    function endDraw(e) {
-        e.preventDefault();
+    async function endDraw(e) {
+        if (!drawing) return;
+
         canvas.releasePointerCapture?.(e.pointerId);
         drawing = false;
+
+        if (currentStroke.length < 2) return;
+
+        const { error } = await supabase.from('strokes').insert({
+            channel_id: channelId,
+            user_id: currentUserId,
+            points: currentStroke,
+            color: colorInput.value,
+            size: parseInt(sizeInput.value, 10),
+        });
+
+        if (error) console.error("Stroke save failed:", error);
+
+        currentStroke = [];
     }
 
     canvas.onpointerdown = startDraw;
@@ -136,10 +138,20 @@ export async function initWhiteboard(channelId) {
             (payload) => {
                 const s = payload.new;
 
-                // prevent double draw
                 if (s.user_id === currentUserId) return;
 
-                drawLocalLine(s.x1, s.y1, s.x2, s.y2, s.color, s.size);
+                const pts = s.points;
+
+                for (let i = 1; i < pts.length; i++) {
+                    drawLocalLine(
+                        pts[i - 1].x,
+                        pts[i - 1].y,
+                        pts[i].x,
+                        pts[i].y,
+                        s.color,
+                        s.size
+                    );
+                }
             }
         )
         .subscribe();
@@ -160,8 +172,19 @@ export async function initWhiteboard(channelId) {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        data.forEach((s) => {
-            drawLocalLine(s.x1, s.y1, s.x2, s.y2, s.color, s.size);
+        data.forEach((stroke) => {
+            const pts = stroke.points;
+
+            for (let i = 1; i < pts.length; i++) {
+                drawLocalLine(
+                    pts[i - 1].x,
+                    pts[i - 1].y,
+                    pts[i].x,
+                    pts[i].y,
+                    stroke.color,
+                    stroke.size
+                );
+            }
         });
     }
 
