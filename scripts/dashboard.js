@@ -85,10 +85,6 @@ async function loadDashboard() {
 
     const groupId = new URLSearchParams(window.location.search).get("group");
 
-    if (!groupId) {
-        redirectToProfile();
-        return;
-    }
 
     function redirectToProfile() {
         window.location.href = "../login/profilepage.html"; 
@@ -110,7 +106,7 @@ async function loadDashboard() {
         .eq("user_id", user.id);
 
     if (memberError || !memberships || memberships.length === 0) {
-        document.getElementById("nav-group-name").textContent = "No Active Group";
+        redirectToProfile();
         return;
     }
 
@@ -320,10 +316,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         await autoJoinGroup(groupFromLink);
 
         // Clean URL
-        window.history.replaceState({}, document.title, window.location.pathname);
+
     }
 
     await loadDashboard();
+    window.history.replaceState({}, document.title, window.location.pathname);
     setupMobileSidebar();
 });
 
