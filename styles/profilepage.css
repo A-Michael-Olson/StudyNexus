@@ -156,13 +156,19 @@ body {
 /* ── Add group + change username ── */
 .user-change {
     display: flex;
-    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin: 1.25rem auto 2rem;
+    margin: 1.5rem auto 2rem;
     padding: 0 1rem;
-    margin-top: 1.5rem;
+}
+
+.group-join-box {
+    width: 100%;
+    max-width: 420px;
+    background: var(--bg-card);
+    border: 1.5px solid var(--accent);
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
+    padding: 0.75rem;
 }
 
 .group-input {
@@ -174,11 +180,9 @@ body {
 
 #group-input {
     flex: 1;
-    width: 100%;
-    box-sizing: border-box;
-    background: var(--bg-card);
-    border: 1.5px solid var(--accent);
-    transition: border 0.15s ease, box-shadow 0.15s ease;
+    min-width: 0; /* IMPORTANT: prevents overflow */
+    padding: 0.45rem 0.6rem;
+    font-size: 0.9rem;
 }
 
     #group-input:focus {
@@ -201,60 +205,28 @@ body {
    MOBILE STYLING
    ====================================================== */
 @media (max-width: 600px) {
- 
-   #profileHeader {
-      padding: 1rem 1rem 0.5rem;
-   }
- 
-   #logo {
-      max-width: 160px;
-   }
- 
-   .profile-photo {
-      flex-direction: column;
-      gap: 0.75rem;
-      margin-top: 0.75rem;
-   }
- 
-   #profile-avatar {
-      width: 90px;
-      height: 90px;
-   }
- 
-   #user-groups {
-      flex-direction: column;
-      align-items: center;
-      padding: 0 1rem;
-   }
- 
-   .group-content {
-      width: 100%;
-      max-width: 100%;
-      min-width: unset;
-      box-sizing: border-box;
-   }
- 
-   .user-change {
-      flex-direction: column;
-      align-items: stretch;
-      margin: 1rem 1rem 2rem;
-   }
- 
-   .group-input {
-      width: 100%;
-   }
- 
-   #group-input {
-      flex: 1;
-      width: auto;
-      box-sizing: border-box;
-   }
- 
-   #change-username {
-      width: 100%;
-   }
- 
-   .btn {
-      min-height: 40px;
-   }
+
+    .user-change {
+        padding: 0 0.75rem;
+    }
+
+    .group-join-box {
+        max-width: 100%;
+        padding: 0.6rem;
+        border-radius: 10px;
+    }
+
+    .group-input {
+        gap: 0.4rem;
+    }
+
+    #group-input {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.5rem;
+    }
+
+    #btn-add-group {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.6rem;
+    }
 }
