@@ -6,6 +6,7 @@
 /* ======================================================
    GROUP LAYOUT
    ====================================================== */
+
 /* ── Page ── */
 body {
    margin: 0;
@@ -45,7 +46,6 @@ body {
    border: 3px solid var(--accent);
 }
  
-/* Hide raw file input — upload button triggers it via JS */
 #avatar-input {
    display: none;
 }
@@ -85,11 +85,12 @@ body {
 .groups-label h1 {
    font-size: 1.4rem;
    margin: 0.5rem 0 0.75rem;
+   text-align: center;
 }
  
 /* ── Group cards ── */
 #user-groups {
-   display: inline-flex;
+   display: flex;
    flex-wrap: wrap;
    gap: 1rem;
    justify-content: center;
@@ -107,6 +108,7 @@ body {
    cursor: pointer;
    font-size: 0.875rem;
    line-height: 1.5;
+   min-width: 200px;
    max-width: 340px;
 }
  
@@ -117,7 +119,6 @@ body {
    transition: background-color 100ms ease-in-out;
 }
  
-/* UUID truncation */
 .group-content .group-id {
    color: var(--text-muted, #888);
    font-size: 0.75rem;
@@ -133,8 +134,10 @@ body {
    display: flex;
    align-items: center;
    justify-content: center;
+   flex-wrap: wrap;
    gap: 0.75rem;
    margin: 1.25rem auto 2rem;
+   padding: 0 1rem;
 }
  
 .group-input {
@@ -149,7 +152,7 @@ body {
    border: 1.5px solid var(--accent);
    font-size: 0.9rem;
    min-width: 0;
-   flex: 1 1 140px;
+   width: 180px;
 }
  
 /* ── Buttons ── */
@@ -162,9 +165,9 @@ body {
 }
  
 /* ======================================================
-   MOBILE — max-width: 768px
+   MOBILE STYLING
    ====================================================== */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
  
    #profileHeader {
       padding: 1rem 1rem 0.5rem;
@@ -185,27 +188,17 @@ body {
       height: 90px;
    }
  
-   #profile-user-name,
-   #profile-email {
-      font-size: 1rem;
-      margin: 0.25rem 0;
-      word-break: break-all;
-   }
- 
-   .groups-label h1 {
-      font-size: 1.25rem;
-      margin: 1rem 0 0.5rem;
-   }
- 
    #user-groups {
-      display: flex;
       flex-direction: column;
-      align-items: stretch;
+      align-items: center;
       padding: 0 1rem;
    }
  
    .group-content {
+      width: 100%;
       max-width: 100%;
+      min-width: unset;
+      box-sizing: border-box;
    }
  
    .user-change {
@@ -220,15 +213,16 @@ body {
  
    #group-input {
       flex: 1;
+      width: auto;
       box-sizing: border-box;
    }
  
-   #btn-add-group {
-      white-space: nowrap;
+   #btn-add-group,
+   #btn-change-group {
+      width: 100%;
    }
  
-   #change-username,
-   #btn-change-group {
+   #change-username {
       width: 100%;
    }
  
@@ -236,18 +230,3 @@ body {
       min-height: 40px;
    }
 }
- 
-/* Two-column group grid on medium-width phones */
-@media (min-width: 480px) and (max-width: 768px) {
- 
-   #user-groups {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-   }
- 
-   .group-content {
-      width: calc(50% - 0.5rem);
-   }
-}
- 
