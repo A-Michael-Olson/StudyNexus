@@ -54,12 +54,14 @@ body {
 .username-row {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.6rem;
     margin: 0.75rem 0 0.1rem;
 }
  
 .username-row #profile-user-name {
     margin: 0;
+    text-align: left;
 }
  
 .btn-subtle {
@@ -67,6 +69,8 @@ body {
     padding: 0.25rem 0.65rem;
     min-height: unset;
     opacity: 0.75;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
  
 .btn-subtle:hover {
