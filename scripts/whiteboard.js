@@ -136,6 +136,10 @@ export async function initWhiteboard(channelId) {
                 filter: `channel_id=eq.${channelId}`
             },
             (payload) => {
+
+                console.log("REALTIME HIT:", payload);
+
+
                 const s = payload.new;
 
                 if (s.user_id === currentUserId) return;
