@@ -51,12 +51,28 @@ body {
 }
  
 /* ── Name & email ── */
-#profile-user-name {
-   margin: 0.75rem 0 0.1rem;
-   font-size: 1.3rem;
-   text-align: center;
+.username-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0.75rem 0 0.1rem;
 }
  
+.username-row #profile-user-name {
+    margin: 0;
+}
+ 
+.btn-subtle {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
+    min-height: unset;
+    opacity: 0.75;
+}
+ 
+.btn-subtle:hover {
+    opacity: 1;
+}
+
 #profile-email {
    margin: 0 0 0.5rem;
    font-size: 0.95rem;
