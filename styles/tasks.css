@@ -16,6 +16,13 @@
     font-weight: 700;
 }
 
+#tasks-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
 /* ===== Add Task Button Spacing ===== */
 #btn-add-task {
     align-self: flex-start;
@@ -29,8 +36,8 @@
     flex-direction: column;
     gap: 1.2rem;
     overflow-y: auto;
-    min-height: 0;
     flex: 1;
+    min-height: 0;
 }
 
 .task-column {
