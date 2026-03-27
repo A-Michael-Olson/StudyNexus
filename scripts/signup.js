@@ -23,7 +23,9 @@ form.addEventListener("submit", async (e) => {
         alert(error.message);
         return;
     }    
-    
-    alert ("Your account has been succesfully created.")
+
+    if (data.user) {
+    alert("Your account has been successfully created!");
     form.reset();
+    }
 });
