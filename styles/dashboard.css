@@ -502,7 +502,7 @@ a.self {
     min-width: 110px;
 }
 
-.mobile-tabs button.active:hover {
+/* .mobile-tabs button.active:hover {
   border-bottom: 2px solid transparent;
   background-color: var(--accent-hover);
 }
@@ -513,7 +513,7 @@ a.self {
 .mobile-tabs button {
   border-bottom: 2px solid transparent;
   transition: background-color border 1.3s ease-in-out;
-}
+} */
 
 .mobile-toggle {
     display: none;
@@ -634,6 +634,7 @@ a.self {
             border: none;
             cursor: pointer;
             font-weight: 600;
+            color: var(--text-primary);
         }
 
             .mobile-tabs button.active {
