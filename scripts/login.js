@@ -1,3 +1,4 @@
+// Code written by Michael Olson
 import { supabase } from "./supabase.js";
 
 const { data: { session }, error: sessionError } = await supabase.auth.getSession();
