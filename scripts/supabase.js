@@ -1,3 +1,4 @@
+// Code written by Michael Olson
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
 const SUPABASE_URL = "https://pepyodordqrngumegchf.supabase.co";
