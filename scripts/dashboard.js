@@ -1,3 +1,4 @@
+// Code written by Michael Olson
 import { supabase } from "./supabase.js";
 import { loadTasks, initializeTaskUI } from "./tasks.js";
 import { initializeChat } from "./messages.js";
