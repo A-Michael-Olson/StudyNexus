@@ -443,13 +443,19 @@ a.self {
     max-height: 200px;
     overflow-y: auto;
     padding-right: 4px;
+    padding-bottom: 5px; 
+}
+#channel-list button {
+    color: var(--text-primary);
 }
 
-.channel-item {
+
+#channel-list .channel-item {
     text-align: left;
     padding: 0.45rem 0.6rem;
+    color: var(--text-primary);
     border-radius: 6px;
-    border: none;
+    border: 2px solid transparent;
     background: transparent;
     cursor: pointer;
     font-size: 0.9rem;
@@ -471,9 +477,22 @@ a.self {
         font-size: 1.2rem;
     }
 
-.channel-item.active {
-    background-color: var(--bg-secondary);
+#channel-list button.channel-item.active {
+    color: var(--text-light);
+    background-color: var(--accent);
     font-weight: 600;
+}
+#channel-list .channel-item.active:hover {
+  /* active channel bg color on hover*/
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+}
+#channel-list button.channel-item:hover {
+    border-color: var(--accent);
+}
+.channel-delete:hover {
+  /* color: #e94242; */
+    color: var(--accent);
 }
 
 .sidebar-btn {
@@ -482,6 +501,19 @@ a.self {
     height: 28px;
     min-width: 110px;
 }
+
+/* .mobile-tabs button.active:hover {
+  border-bottom: 2px solid transparent;
+  background-color: var(--accent-hover);
+}
+.mobile-tabs button:hover {
+  border-bottom: 2px solid var(--accent);
+
+}
+.mobile-tabs button {
+  border-bottom: 2px solid transparent;
+  transition: background-color border 1.3s ease-in-out;
+} */
 
 .mobile-toggle {
     display: none;
@@ -553,7 +585,7 @@ a.self {
     #input-bar {
         position: sticky;
         bottom: 0;
-        background: var(--bg-card);
+        /* background: var(--bg-card); */
         padding-bottom: 0.5rem;
     }
 
@@ -602,11 +634,12 @@ a.self {
             border: none;
             cursor: pointer;
             font-weight: 600;
+            color: var(--text-primary);
         }
 
             .mobile-tabs button.active {
                 background: var(--accent);
-                color: white;
+                color: var(--text-light);
             }
 
     /* Content */

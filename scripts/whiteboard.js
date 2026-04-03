@@ -15,6 +15,7 @@ export async function initWhiteboard(channelId) {
     const ctx = canvas.getContext('2d');
     const colorInput = document.getElementById('color');
     const sizeInput = document.getElementById('size');
+    const undoBtn = document.getElementById('undo-btn');
 
     // Get user once (DON’T do this every mouse move)
     const { data: { user } } = await supabase.auth.getUser();
@@ -112,11 +113,48 @@ export async function initWhiteboard(channelId) {
         currentStroke = [];
     }
 
+    async function undoLastStroke() {
+        if (!currentUserId) return;
+
+        // Get last stroke by this user
+        const { data, error } = await supabase
+            .from('strokes')
+            .select('id')
+            .eq('channel_id', channelId)
+            .eq('user_id', currentUserId)
+            .order('created_at', { ascending: false })
+            .limit(1);
+
+        if (error) {
+            console.error("Undo fetch failed:", error);
+            return;
+        }
+
+        if (!data || data.length === 0) return;
+
+        const strokeId = data[0].id;
+
+        // Delete it
+        const { error: deleteError } = await supabase
+            .from('strokes')
+            .delete()
+            .eq('id', strokeId);
+
+        if (deleteError) {
+            console.error("Undo delete failed:", deleteError);
+            return;
+        }
+
+        // Redraw everything
+        await loadHistory();
+    }
+
     canvas.onpointerdown = startDraw;
     canvas.onpointermove = drawMove;
     canvas.onpointerup = endDraw;
     canvas.onpointerleave = endDraw;
     canvas.onpointercancel = endDraw;
+    undoBtn.onclick = undoLastStroke;
 
     // ================= REALTIME =================
 
@@ -166,6 +204,19 @@ export async function initWhiteboard(channelId) {
                         s.size
                     );
                 }
+            }
+    )
+        .on(
+            'postgres_changes',
+            {
+                event: 'DELETE',
+                schema: 'public',
+                table: 'strokes',
+                filter: `channel_id=eq.${channelId}`
+            },
+            () => {
+                // Just reload everything when a stroke is deleted
+                loadHistory();
             }
         )
         .subscribe();
