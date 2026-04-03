@@ -1,3 +1,4 @@
+// Code written by Michael Olson
 import { supabase } from "./supabase.js";
 import { updateHeaderChannel } from "./dashboard.js";
 import { switchToWhiteboard, switchToChat } from "./dashboard.js";
