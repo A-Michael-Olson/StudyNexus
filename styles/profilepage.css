@@ -1,3 +1,4 @@
+/* KH */
 /* ======================================================
    Study Nexus � Profile Page Styles
    ====================================================== */
@@ -211,11 +212,10 @@ body {
     border: none;
 }
 
-    .btn-danger:hover {
-        background-color: #c73a3a;
-    }
+.btn-danger:hover {
+    background-color: #c73a3a;
+}
  
-
  
 /* ======================================================
    MOBILE STYLING
