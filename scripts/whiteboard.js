@@ -1,3 +1,4 @@
+// Code originally written by James Stolte, significant changes made to correctly implement by Michael Olson
 import { supabase } from "./supabase.js";
 
 let strokesChannel = null;
@@ -17,7 +18,7 @@ export async function initWhiteboard(channelId) {
     const sizeInput = document.getElementById('size');
     const undoBtn = document.getElementById('undo-btn');
 
-    // Get user once (DON’T do this every mouse move)
+    // Get user once (DONâ€™T do this every mouse move)
     const { data: { user } } = await supabase.auth.getUser();
     currentUserId = user?.id;
 
