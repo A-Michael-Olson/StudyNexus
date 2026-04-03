@@ -1,5 +1,4 @@
-# Project Title
-StudyNexus
+# StudyNexus
 
 ## Team Members
  James Stolte, Mike Olson, Kaitlin Heusner, Graham McClure
